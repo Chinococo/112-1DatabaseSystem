@@ -70,4 +70,10 @@ services:
     container_name: "${COMPOSE_PROJECT_NAME}-swagger-ui"
     ports:
       - "${HOST_MACHINE_SWAGGER_EDITOR}:8080"
+  react-app:
+    container_name: '${COMPOSE_PROJECT_NAME}-react'
+    build:
+      context: ./react/
+    ports:
+      - "${HOST_MACHINE_REACT}:3000"    
   
