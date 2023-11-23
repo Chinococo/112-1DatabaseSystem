@@ -7,7 +7,3 @@ docker-compose version
 curl --version
 docker-compose build
 docker-compose up -d
-
-docker build ./python/
-docker run --rm -v "$(pwd)/python/result:/opt/apps/test" lamp-python
-
