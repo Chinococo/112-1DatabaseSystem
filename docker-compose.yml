@@ -61,7 +61,7 @@ services:
     working_dir: /opt/apps/test
     container_name: '${COMPOSE_PROJECT_NAME}-python'
     volumes:
-      - ./python/results:/opt/apps/test
+      - ./python/result:/opt/apps/test
   swagger-editor:
     image: swaggerapi/swagger-editor
     container_name: "${COMPOSE_PROJECT_NAME}-swagger-editor"

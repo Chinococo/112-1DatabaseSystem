@@ -12,5 +12,6 @@ COPY requirements.txt /opt/apps/test
 RUN pip install -r /opt/apps/test/requirements.txt
 
 # 运行 pytest 并输出测试结果到文件
-CMD ["pytest", "--junitxml=test-results.xml", "--json=test-results.json","--html=report.html", "--self-contained-html","--capture=sys"]
+CMD ["pytest", "--junitxml=test-results.xml", "--json=test-results.json", "--html=report.html", "--self-contained-html"]
+# CMD ["pytest", "--html=report.html","--self-contained-html","--capture=sys"]
 
