@@ -59,4 +59,15 @@ services:
   python:
     build: ./python
     working_dir: /opt/apps/test
-    container_name: '${COMPOSE_PROJECT_NAME}-python'  
+    container_name: '${COMPOSE_PROJECT_NAME}-python'
+  swagger-editor:
+    image: swaggerapi/swagger-editor
+    container_name: "${COMPOSE_PROJECT_NAME}-swagger-editor"
+    ports:
+      - "${HOST_MACHINE_SWAGGER_EDITOR_EDITOR}:8080"
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    container_name: "${COMPOSE_PROJECT_NAME}-swagger-ui"
+    ports:
+      - "${HOST_MACHINE_SWAGGER_EDITOR}:8080"
+  
