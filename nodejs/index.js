@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = 4000;
 
 // 定義一個簡單的路由
 app.get('/api', (req, res) => {
