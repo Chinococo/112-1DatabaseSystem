@@ -12,4 +12,3 @@ Set-ExecutionPolicy RemoteSigned
 2. Register
 3. Login
 4. Copy ngork token
-247mAbk8ZjVVMRxuJX7tOOM17QX_2dWLsGo5yTcsineWvCSA4

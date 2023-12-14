@@ -64,7 +64,6 @@ services:
     container_name: '${COMPOSE_PROJECT_NAME}-python'
     volumes:
       - ./python/result:/opt/apps/test
-    command: ["pytest", "--junitxml=test-results.xml", "--json=test-results.json", "--html=report.html", "--self-contained-html"]  
   swagger-editor:
     image: swaggerapi/swagger-editor
     container_name: "${COMPOSE_PROJECT_NAME}-swagger-editor"
