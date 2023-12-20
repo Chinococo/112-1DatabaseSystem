@@ -23,7 +23,7 @@ services:
     build:
       context: "./bin/${DATABASE}"
     container_name: '${COMPOSE_PROJECT_NAME}-database'
-    network_mode: "host"  # 使用Host Network
+    # network_mode: "host"  # 使用Host Network
     restart: 'always'
     ports:
       - "${HOST_MACHINE_MYSQL_PORT}:3306"
@@ -79,7 +79,7 @@ services:
     ports:
       - "${HOST_MACHINE_SWAGGER_EDITOR}:8080"
   react-app:
-    network_mode: "host"  # 使用Host Network
+    # network_mode: "host"  # 使用Host Network
     container_name: '${COMPOSE_PROJECT_NAME}-react'
     build:
       context: ./react/

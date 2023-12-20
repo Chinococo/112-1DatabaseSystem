@@ -34,11 +34,14 @@ for ($attempt = 1; $attempt -le $maxRetryAttempts; $attempt++) {
         Start-Sleep -Seconds 5
     }
 }
-docker run -d --name test --network host databasesystem-nodejs-app
+docker run -d --name test1 --network host databasesystem-database
+docker run -d --name test2 --network host databasesystem-nodejs-app
 docker run --rm -v ${PWD}/python/result:/opt/apps/test/python/result  --network host databasesystem-python pytest --junitxml=/opt/apps/test/python/result/test-results.xml --json=/opt/apps/test/python/result/test-results.json --html=/opt/apps/test/python/result/report.html --self-contained-html
 Start-Process -FilePath "${PWD}/python/result/report.html"
 # Stop the container
-docker stop test
+docker stop test1
+docker stop test2
 # Remove the container
-docker rm test
+docker rm test1
+docker rm test2
 
