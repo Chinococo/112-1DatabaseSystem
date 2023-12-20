@@ -2,6 +2,8 @@ version: "3"
 
 services:
   webserver:
+    links:
+        - nodejs-app
     build: 
       context: ./bin/${PHPVERSION}
     container_name: '${COMPOSE_PROJECT_NAME}-${PHPVERSION}'
@@ -86,6 +88,8 @@ services:
     ports:
       - "${HOST_MACHINE_REACT}:3000"
   nodejs-app:
+    links: 
+      - database
     build: ./nodejs/  # 使用當前目錄的 Dockerfile 進行構建
     #network_mode: "host"  # 使用Host Network
     ports:

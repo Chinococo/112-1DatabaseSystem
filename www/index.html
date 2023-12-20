@@ -1,7 +1,53 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MySQL Connection Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #result {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h1>成功開啟</h1>
+
+<h1>MySQL Connection Test</h1>
+<button onclick="testMySQLConnection()">Test Connection</button>
+<div id="result"></div>
+
+<script>
+    function testMySQLConnection() {
+       
+
+        var resultDiv = document.getElementById('result');
+
+        // Create a new XMLHttpRequest object
+        var xhr = new XMLHttpRequest();
+        // Set up a POST request to a server (you may need to replace the URL with your server endpoint)
+        xhr.open('GET', 'http://localhost:4000/test_mysql_connection', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        // Send the JSON configuration to the server
+        xhr.send();
+
+        // Define the callback function to handle the response
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) { // Request is complete
+                if (xhr.status === 200) { // Request was successful
+                    var response = JSON.parse(xhr.responseText);
+                    resultDiv.innerHTML = '<p>' + response.message + '</p>';
+                } else {
+                    resultDiv.innerHTML = '<p>Error: ' + xhr.statusText + '</p>';
+                }
+            }
+        };
+    }
+</script>
+
 </body>
+</html>
