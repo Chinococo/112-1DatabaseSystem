@@ -62,7 +62,8 @@ services:
   #    - "${HOST_MACHINE_REDIS_PORT}:6379"
   python:
     build: ./python
-    network_mode: "host"  # 使用Host Network
+    links: 
+      - nodejs-app
     working_dir: /opt/apps/test
     container_name: '${COMPOSE_PROJECT_NAME}-python'
     volumes:
@@ -86,7 +87,7 @@ services:
       - "${HOST_MACHINE_REACT}:3000"
   nodejs-app:
     build: ./nodejs/  # 使用當前目錄的 Dockerfile 進行構建
-    network_mode: "host"  # 使用Host Network
+    #network_mode: "host"  # 使用Host Network
     ports:
       - "${HOST_MACHINE_Nodejs}:5000"  # 映射容器的 3000 埠到主機的 3000 埠        
   
