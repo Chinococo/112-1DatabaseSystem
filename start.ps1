@@ -8,7 +8,7 @@ docker-compose build
 docker-compose up -d
 rm -r .\python\result\
 # 设置请求的URL
-$url = "http://localhost:4000/api"
+$url = "http://localhost:3000/api"
 
 # 设置最大重试次数
 $maxRetryAttempts = 5
@@ -34,5 +34,5 @@ for ($attempt = 1; $attempt -le $maxRetryAttempts; $attempt++) {
         Start-Sleep -Seconds 5
     }
 }
-docker run --rm -v ${PWD}/python/result:/opt/apps/test/python/result databasesystem-python pytest --junitxml=/opt/apps/test/python/result/test-results.xml --json=/opt/apps/test/python/result/test-results.json --html=/opt/apps/test/python/result/report.html --self-contained-html
+docker run --rm -v ${PWD}/python/result:/opt/apps/test/python/result  --network host databasesystem-python pytest --junitxml=/opt/apps/test/python/result/test-results.xml --json=/opt/apps/test/python/result/test-results.json --html=/opt/apps/test/python/result/report.html --self-contained-html
 Start-Process -FilePath "${PWD}/python/result/report.html"

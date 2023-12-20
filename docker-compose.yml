@@ -23,6 +23,7 @@ services:
     build:
       context: "./bin/${DATABASE}"
     container_name: '${COMPOSE_PROJECT_NAME}-database'
+    network_mode: "host"  # 使用Host Network
     restart: 'always'
     ports:
       - "${HOST_MACHINE_MYSQL_PORT}:3306"
@@ -53,11 +54,12 @@ services:
     volumes: 
       - /sessions
       - ${PHP_INI-./config/php/php.ini}:/usr/local/etc/php/conf.d/php-phpmyadmin.ini
-  redis:
-    container_name: '${COMPOSE_PROJECT_NAME}-redis'
-    image: redis:latest
-    ports:
-      - "${HOST_MACHINE_REDIS_PORT}:6379"
+  #redis:
+  #  container_name: '${COMPOSE_PROJECT_NAME}-redis'
+  #  network_mode: "host"  # 使用Host Network
+  #  image: redis:latest
+  #  ports:
+  #    - "${HOST_MACHINE_REDIS_PORT}:6379"
   python:
     build: ./python
     network_mode: "host"  # 使用Host Network
@@ -76,6 +78,7 @@ services:
     ports:
       - "${HOST_MACHINE_SWAGGER_EDITOR}:8080"
   react-app:
+    network_mode: "host"  # 使用Host Network
     container_name: '${COMPOSE_PROJECT_NAME}-react'
     build:
       context: ./react/
@@ -83,7 +86,7 @@ services:
       - "${HOST_MACHINE_REACT}:3000"
   nodejs-app:
     build: ./nodejs/  # 使用當前目錄的 Dockerfile 進行構建
-    #network_mode: "host"  # 使用Host Network
+    network_mode: "host"  # 使用Host Network
     ports:
-      - "${HOST_MACHINE_Nodejs}:4000"  # 映射容器的 3000 埠到主機的 3000 埠        
+      - "${HOST_MACHINE_Nodejs}:5000"  # 映射容器的 3000 埠到主機的 3000 埠        
   
