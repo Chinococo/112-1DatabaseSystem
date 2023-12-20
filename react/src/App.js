@@ -1,9 +1,13 @@
 import logo from './logo.svg';
 import './App.css';
-
+import MySQLConnectionTest from './MySQL';
 function App() {
   return (
     <div className="App">
+       <div>
+        {/* 其他组件或内容 */}
+        <MySQLConnectionTest />
+      </div>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
