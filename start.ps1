@@ -36,7 +36,25 @@ for ($attempt = 1; $attempt -le $maxRetryAttempts; $attempt++) {
 }
 docker run -d --name test1 --network host --env-file .sql.env  databasesystem-database
 docker run -d --name test2 --network host databasesystem-nodejs-app
-Start-Sleep -Seconds 20 #如果沒辦法順利通過 請設長一點
+while ($true) {
+    try {
+        # Run MySQL command and capture the output
+        $output = docker exec -it test1 mysql -h 127.0.0.1 -P 3306 2>&1
+
+        # Check if the output contains the access denied error
+        if ($output -match "Access denied for user 'root'@'127.0.0.1'") {
+            Write-Host "Connection successful"
+            break
+        } else {
+            Write-Host "Connection error: $output"
+        }
+    } catch {
+        Write-Host "Error: $_"
+    }
+
+    # Wait for one second before the next iteration
+    Start-Sleep -Seconds 3
+}
 docker run --rm -v ${PWD}/python/result:/opt/apps/test/python/result  --network host databasesystem-python pytest --junitxml=/opt/apps/test/python/result/test-results.xml --json=/opt/apps/test/python/result/test-results.json --html=/opt/apps/test/python/result/report.html --self-contained-html
 Start-Process -FilePath "${PWD}/python/result/report.html"
 # Stop the container
