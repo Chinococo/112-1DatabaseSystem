@@ -1,7 +1,7 @@
-import { BrowserRouter, Routes, Route,HashRouter } from "react-router-dom";
-import './App.css';
-import MySQLConnectionTest from './MySQL';
-import SecondPage from './SecondPage';
+import { BrowserRouter, Routes, Route} from "react-router-dom";
+import MySQLConnectionTest from './../page/MySQL';
+import SecondPage from './../page/SecondPage';
+import '../css/index.css';
 const App=()=>{
   return( 
     <BrowserRouter>
