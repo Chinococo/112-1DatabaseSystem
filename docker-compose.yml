@@ -84,7 +84,8 @@ services:
     build:
       context: ./react/
     ports:
-      - "${HOST_MACHINE_REACT}:3000"
+      - "${HOST_MACHINE_REACT}:80"
+      - "3001:81"
   nodejs-app:
     links: 
       - database

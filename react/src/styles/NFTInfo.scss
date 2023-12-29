@@ -1,0 +1,160 @@
+@mixin textbox {
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.nft-container {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  height: 100dvh;
+
+  .titlePhoto {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    background: #efefef;
+
+    // margin-bottom: 24px;
+    .titlePhoto-photo {
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
+
+  .container-introduce {
+    padding: 24px;
+
+  }
+
+  .title {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    .title-comment {
+      color: #808080;
+      text-align: flex-start;
+      font-family: Montserrat;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 20px;
+    }
+
+    .title-name {
+      color: #000000;
+      text-align: flex-start;
+      font-family: Montserrat;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 30px;
+    }
+
+    .titleExchange {
+      position: absolute;
+      right: 0;
+
+      .titleExchange-button {
+        background-color: rgb(146, 215, 105);
+        padding: 1rem;
+        border: 0;
+        border-radius: 8px;
+        font-size: small;
+        color: white;
+      }
+
+      .titleExchange-button-gray {
+        background-color: #B3B3B3;
+        padding: 1rem;
+        border: 0;
+        border-radius: 8px;
+        font-size: small;
+        color: white;
+
+      }
+    }
+  }
+
+  .content {
+    @include textbox;
+    line-height: 18px;
+  }
+
+  .info {
+    @include textbox;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .info-content {
+      display: flex;
+      justify-content: space-between;
+
+      .info-contract-value {
+        color: #0085ff;
+      }
+    }
+  }
+
+  .attribute {
+    @include textbox;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .attribute-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .attribute-box {
+      background: #efefef;
+      display: flex;
+      flex-direction: column;
+      padding: 8px 12px;
+      gap: 10px;
+
+      .attribute-box-title {
+        color: #808080;
+        text-align: center;
+      }
+    }
+  }
+
+  .about {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .about-title {
+      @include textbox;
+      color: #808080;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 20px;
+    }
+
+    .about-content {
+      @include textbox;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 18px;
+    }
+  }
+
+  .line {
+    width: 100%;
+    height: 0.5px;
+    background: #808080;
+    margin: 16px 0px;
+  }
+
+  .cross {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+  }
+}

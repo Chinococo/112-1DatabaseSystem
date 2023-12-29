@@ -1,13 +1,67 @@
+html {
+  position:relative;
+  overflow: hidden;
+}
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  width: 100%;
+  min-height: 100dvh;
+  height: 100%;
+  max-width: 100%;
+
+  position:fixed;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace, "PressStart2P", "Montserrat";
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "PressStart2P";
+  src: local("PressStart2P"), url(./fonts/PressStart2P-Regular.ttf);
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: local("Montserrat"), url(./fonts/Montserrat-VariableFont_wght.ttf);
+}
+
+.App {
+  text-align: center;
+  padding: 50px;
+}
+
+img {
+  max-width: 100%;
+  width: 100%;
+  transition: transform 0.3s ease-in-out;
+}
+
+.zoomed {
+  transform: scale(3);
+}
+
+.react-transform-wrapper,
+.react-transform-component {
+  width: 100% !important;
+  height: 100% !important;
+  align-items: center;
+  justify-content: center;
 }
