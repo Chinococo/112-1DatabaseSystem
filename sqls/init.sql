@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： database:3306
--- 產生時間： 2024 年 01 月 01 日 16:12
+-- 產生時間： 2024 年 01 月 01 日 16:38
 -- 伺服器版本： 5.7.44
 -- PHP 版本： 8.2.8
 
@@ -40,8 +40,10 @@ CREATE TABLE `Cinema` (
 --
 
 INSERT INTO `Cinema` (`Cinema_ssn`, `Cinema_No`, `Theater_Name`, `Seat_Row`, `Seat_Column`) VALUES
-('C001', '1', 'City Cinemas', 10, 10),
-('C002', '2', 'City Cinemas', 6, 6);
+('C001', '1', '台北信義威秀影城', 10, 10),
+('C002', '1', '喜滿樂絕色影城', 6, 6),
+('C003', '2', '台北信義威秀影城', 7, 7),
+('C004', '2', '喜滿樂絕色影城', 8, 8);
 
 -- --------------------------------------------------------
 
@@ -64,9 +66,12 @@ CREATE TABLE `Coupon` (
 --
 
 INSERT INTO `Coupon` (`CouponID`, `CustomerID`, `Fee`, `Reason`, `Situation`, `Start_Date`, `End_Date`) VALUES
-('COUP001', 'A123456789', 10, 'Discount', 'Active', '2023-01-01', '2023-01-31'),
 ('COUP002', 'B987654321', 15, 'Special Offer', 'Active', '2023-02-01', '2023-02-28'),
-('COUP003', 'C111223344', 20, 'Birthday Coupon', 'Active', '2023-03-01', '2023-03-31');
+('COUP003', 'C111223344', 20, 'Birthday Coupon', 'Active', '2023-03-01', '2023-03-31'),
+('COUP004', 'A123456789', 10, 'No Discount', 'Active', '2023-01-01', '2033-02-28'),
+('NoDiscount001', 'B987654321', 0, 'No Discount', 'Active', '2023-02-01', '2032-02-29'),
+('NoDiscount002', 'A123456789', 0, 'No Discount', 'Active', '2023-02-01', '2032-02-29'),
+('NoDiscount003', 'C111223344', 0, 'No Discount', 'Active', '2023-02-01', '2032-02-29');
 
 -- --------------------------------------------------------
 
@@ -89,9 +94,9 @@ CREATE TABLE `Customer` (
 --
 
 INSERT INTO `Customer` (`ID_card`, `Name`, `Sex`, `Register_date`, `Email`, `Address`, `Password`) VALUES
-('A123456789', 'John Doe', 'Male', '2023-01-01', 'john.doe@example.com', '123 Main St', ''),
-('B987654321', 'Jane Smith', 'Female', '2023-01-02', 'jane.smith@example.com', '456 Oak St', ''),
-('C111223344', 'Chris Johnson', 'Male', '2023-01-03', 'chris.johnson@example.com', '789 Pine St', '');
+('A123456789', 'John Doe', 'Male', '2023-01-01', 'john.doe@example.com', '123 Main St', '12345678'),
+('B987654321', 'Jane Smith', 'Female', '2023-01-02', 'jane.smith@example.com', '456 Oak St', '987654321'),
+('C111223344', 'Chris Johnson', 'Male', '2023-01-03', 'chris.johnson@example.com', '789 Pine St', '918273645');
 
 -- --------------------------------------------------------
 
@@ -248,8 +253,8 @@ CREATE TABLE `Theater` (
 --
 
 INSERT INTO `Theater` (`Name`, `Business_Address`) VALUES
-('City Cinemas', '123 Broadway Ave'),
-('Starplex Cinemas', '456 Main St');
+('台北信義威秀影城', '110 臺北市信義區松壽路20號1樓'),
+('喜滿樂絕色影城', '108 臺北市萬華區西門町漢中街52號8-11樓 ');
 
 --
 -- 已傾印資料表的索引
