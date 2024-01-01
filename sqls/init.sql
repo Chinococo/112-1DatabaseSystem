@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： database:3306
--- 產生時間： 2024 年 01 月 01 日 16:38
+-- 產生時間： 2024 年 01 月 01 日 20:24
 -- 伺服器版本： 5.7.44
 -- PHP 版本： 8.2.8
 
@@ -133,17 +133,18 @@ CREATE TABLE `Movie` (
   `Director` varchar(255) DEFAULT NULL,
   `Name` varchar(255) DEFAULT NULL,
   `Duration` int(11) DEFAULT NULL,
-  `image` varchar(255) DEFAULT NULL
+  `image` varchar(255) DEFAULT NULL,
+  `information` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- 傾印資料表的資料 `Movie`
 --
 
-INSERT INTO `Movie` (`Movie_ID`, `Type`, `Actors`, `Rate`, `Director`, `Name`, `Duration`, `image`) VALUES
-('1', 'Action', 'Tom Cruise, Scarlett Johansson', 9, 'Christopher Nolan', 'Inception', 150, 'inception.jpg'),
-('2', 'Comedy', 'Ryan Reynolds, Emma Stone', 8, 'Taika Waititi', 'Deadpool', 120, 'deadpool.jpg'),
-('3', 'Drama', 'Brad Pitt, Cate Blanchett', 9, 'Quentin Tarantino', 'Pulp Fiction', 154, 'pulpfiction.jpg');
+INSERT INTO `Movie` (`Movie_ID`, `Type`, `Actors`, `Rate`, `Director`, `Name`, `Duration`, `image`, `information`) VALUES
+('1', 'Action', 'Tom Cruise, Scarlett Johansson', 9, 'Christopher Nolan', 'Inception', 150, 'inception.jpg', '幹片1'),
+('2', 'Comedy', 'Ryan Reynolds, Emma Stone', 8, 'Taika Waititi', 'Deadpool', 120, 'deadpool.jpg', '幹片2'),
+('3', 'Drama', 'Brad Pitt, Cate Blanchett', 9, 'Quentin Tarantino', 'Pulp Fiction', 154, 'pulpfiction.jpg', '幹片3');
 
 -- --------------------------------------------------------
 
