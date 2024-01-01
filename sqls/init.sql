@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： database:3306
--- 產生時間： 2024 年 01 月 01 日 12:00
+-- 產生時間： 2024 年 01 月 01 日 15:13
 -- 伺服器版本： 5.7.44
 -- PHP 版本： 8.2.8
 
@@ -193,7 +193,6 @@ CREATE TABLE `OrderDetail` (
   `Order_ID` varchar(255) NOT NULL,
   `Order_Date` date DEFAULT NULL,
   `Ship_Date` date DEFAULT NULL,
-  `Quantity` int(11) DEFAULT NULL,
   `status` varchar(11) DEFAULT NULL,
   `Cinema_ssn` varchar(255) DEFAULT NULL,
   `Price` int(11) DEFAULT NULL,
@@ -206,9 +205,9 @@ CREATE TABLE `OrderDetail` (
 -- 傾印資料表的資料 `OrderDetail`
 --
 
-INSERT INTO `OrderDetail` (`Order_ID`, `Order_Date`, `Ship_Date`, `Quantity`, `status`, `Cinema_ssn`, `Price`, `Play_ID`, `Coupon_ID`, `SeatID`) VALUES
-('ORDER001', '2023-01-20', '2023-01-25', 2, 'Shipped', 'C001', 20, 'PLAY001', 'COUP002', 1),
-('ORDER002', '2023-02-05', '2023-02-10', 3, 'Pending', 'C002', 26, 'PLAY002', 'COUP003', 2);
+INSERT INTO `OrderDetail` (`Order_ID`, `Order_Date`, `Ship_Date`, `status`, `Cinema_ssn`, `Price`, `Play_ID`, `Coupon_ID`, `SeatID`) VALUES
+('ORDER001', '2023-01-20', '2023-01-25', 'Shipped', 'C001', 20, 'PLAY001', 'COUP002', 1),
+('ORDER002', '2023-02-05', '2023-02-10', 'Pending', 'C002', 26, 'PLAY002', 'COUP003', 2);
 
 -- --------------------------------------------------------
 
