@@ -34,8 +34,8 @@ for ($attempt = 1; $attempt -le $maxRetryAttempts; $attempt++) {
         Start-Sleep -Seconds 5
     }
 }
-docker run -d --name test1 --network host --env-file .sql.env  databasesystem-database
-docker run -d --name test2 --network host databasesystem-nodejs-app
+docker run -d --name test1 --network host --env-file .sql.env  -v ${PWD}/sqls:/docker-entrypoint-initdb.d databasesystem-database
+docker run -d --name test2 --network host -e DB_HOST=localhost databasesystem-nodejs-app
 while ($true) {
     try {
         # Run MySQL command and capture the output
