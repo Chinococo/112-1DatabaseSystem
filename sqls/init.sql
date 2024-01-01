@@ -1,14 +1,14 @@
-use database_project;
 -- phpMyAdmin SQL Dump
--- version 4.6.6deb5ubuntu0.5
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- 主機: localhost:3306
--- 產生時間： 2023 年 12 月 07 日 23:05
--- 伺服器版本: 5.7.42-0ubuntu0.18.04.1
--- PHP 版本： 7.2.24-0ubuntu0.18.04.17
+-- 主機： database:3306
+-- 產生時間： 2024 年 01 月 01 日 12:00
+-- 伺服器版本： 5.7.44
+-- PHP 版本： 8.2.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- 資料庫： `admin_Database`
+-- 資料庫： `database_project`
 --
 
 -- --------------------------------------------------------
@@ -35,7 +35,7 @@ CREATE TABLE `Cinema` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- 資料表的匯出資料 `Cinema`
+-- 傾印資料表的資料 `Cinema`
 --
 
 INSERT INTO `Cinema` (`Cinema_ssn`, `Cinema_No`, `Theater_Name`, `SeatInformation`) VALUES
@@ -59,7 +59,7 @@ CREATE TABLE `Coupon` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- 資料表的匯出資料 `Coupon`
+-- 傾印資料表的資料 `Coupon`
 --
 
 INSERT INTO `Coupon` (`CouponID`, `CustomerID`, `Fee`, `Reason`, `Situation`, `Start_Date`, `End_Date`) VALUES
@@ -83,7 +83,7 @@ CREATE TABLE `Customer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- 資料表的匯出資料 `Customer`
+-- 傾印資料表的資料 `Customer`
 --
 
 INSERT INTO `Customer` (`ID_card`, `Name`, `Sex`, `Register_date`, `Email`, `Address`) VALUES
@@ -104,7 +104,7 @@ CREATE TABLE `Employee` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- 資料表的匯出資料 `Employee`
+-- 傾印資料表的資料 `Employee`
 --
 
 INSERT INTO `Employee` (`Employee_ID`, `Position`, `Name`) VALUES
@@ -130,7 +130,7 @@ CREATE TABLE `Movie` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- 資料表的匯出資料 `Movie`
+-- 傾印資料表的資料 `Movie`
 --
 
 INSERT INTO `Movie` (`Movie_ID`, `Type`, `Actors`, `Rate`, `Director`, `Name`, `Duration`, `image`) VALUES
@@ -154,7 +154,7 @@ CREATE TABLE `Movie_Screening_Schedule` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- 資料表的匯出資料 `Movie_Screening_Schedule`
+-- 傾印資料表的資料 `Movie_Screening_Schedule`
 --
 
 INSERT INTO `Movie_Screening_Schedule` (`Play_ID`, `date`, `PlayTime`, `Cinema_ssn`, `Cinema_NO`, `Movie_ID`) VALUES
@@ -176,7 +176,7 @@ CREATE TABLE `Notification` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- 資料表的匯出資料 `Notification`
+-- 傾印資料表的資料 `Notification`
 --
 
 INSERT INTO `Notification` (`NotifyID`, `Message`, `Start_Date`, `End_Date`) VALUES
@@ -196,20 +196,41 @@ CREATE TABLE `OrderDetail` (
   `Quantity` int(11) DEFAULT NULL,
   `status` varchar(11) DEFAULT NULL,
   `Cinema_ssn` varchar(255) DEFAULT NULL,
-  `Seat_Row` varchar(255) NOT NULL,
-  `Seat_Number` varchar(255) NOT NULL,
   `Price` int(11) DEFAULT NULL,
   `Play_ID` varchar(255) DEFAULT NULL,
-  `Coupon_ID` varchar(255) DEFAULT NULL
+  `Coupon_ID` varchar(255) DEFAULT NULL,
+  `SeatID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- 資料表的匯出資料 `OrderDetail`
+-- 傾印資料表的資料 `OrderDetail`
 --
 
-INSERT INTO `OrderDetail` (`Order_ID`, `Order_Date`, `Ship_Date`, `Quantity`, `status`, `Cinema_ssn`, `Seat_Row`, `Seat_Number`, `Price`, `Play_ID`, `Coupon_ID`) VALUES
-('ORDER001', '2023-01-20', '2023-01-25', 2, 'Shipped', 'C001', 'A', '1', 20, 'PLAY001', 'COUP002'),
-('ORDER002', '2023-02-05', '2023-02-10', 3, 'Pending', 'C002', 'B', '2', 26, 'PLAY002', 'COUP003');
+INSERT INTO `OrderDetail` (`Order_ID`, `Order_Date`, `Ship_Date`, `Quantity`, `status`, `Cinema_ssn`, `Price`, `Play_ID`, `Coupon_ID`, `SeatID`) VALUES
+('ORDER001', '2023-01-20', '2023-01-25', 2, 'Shipped', 'C001', 20, 'PLAY001', 'COUP002', 1),
+('ORDER002', '2023-02-05', '2023-02-10', 3, 'Pending', 'C002', 26, 'PLAY002', 'COUP003', 2);
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `Seats`
+--
+
+CREATE TABLE `Seats` (
+  `SeatID` int(11) NOT NULL,
+  `SeatRow` int(50) DEFAULT NULL,
+  `SeatColumn` int(10) DEFAULT NULL,
+  `PlayID` varchar(255) NOT NULL,
+  `SeatCustomerID_card` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 傾印資料表的資料 `Seats`
+--
+
+INSERT INTO `Seats` (`SeatID`, `SeatRow`, `SeatColumn`, `PlayID`, `SeatCustomerID_card`) VALUES
+(1, 10, 5, 'PLAY001', 'A123456789'),
+(2, 10, 5, 'PLAY002', 'B987654321');
 
 -- --------------------------------------------------------
 
@@ -223,7 +244,7 @@ CREATE TABLE `Theater` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- 資料表的匯出資料 `Theater`
+-- 傾印資料表的資料 `Theater`
 --
 
 INSERT INTO `Theater` (`Name`, `Business_Address`) VALUES
@@ -231,7 +252,7 @@ INSERT INTO `Theater` (`Name`, `Business_Address`) VALUES
 ('Starplex Cinemas', '456 Main St');
 
 --
--- 已匯出資料表的索引
+-- 已傾印資料表的索引
 --
 
 --
@@ -287,7 +308,16 @@ ALTER TABLE `OrderDetail`
   ADD PRIMARY KEY (`Order_ID`),
   ADD KEY `Play_ID` (`Play_ID`),
   ADD KEY `Coupon_ID` (`Coupon_ID`),
-  ADD KEY `fk_Cinema_ssn` (`Cinema_ssn`);
+  ADD KEY `fk_Cinema_ssn` (`Cinema_ssn`),
+  ADD KEY `FK_OrderDetail_Seats` (`SeatID`);
+
+--
+-- 資料表索引 `Seats`
+--
+ALTER TABLE `Seats`
+  ADD PRIMARY KEY (`SeatID`),
+  ADD KEY `FK_Seats_PlayID_1` (`PlayID`),
+  ADD KEY `FK_SeatCustomerID` (`SeatCustomerID_card`);
 
 --
 -- 資料表索引 `Theater`
@@ -296,35 +326,44 @@ ALTER TABLE `Theater`
   ADD PRIMARY KEY (`Name`);
 
 --
--- 已匯出資料表的限制(Constraint)
+-- 已傾印資料表的限制式
 --
 
 --
--- 資料表的 Constraints `Cinema`
+-- 資料表的限制式 `Cinema`
 --
 ALTER TABLE `Cinema`
   ADD CONSTRAINT `fk_Theater_Name` FOREIGN KEY (`Theater_Name`) REFERENCES `Theater` (`Name`);
 
 --
--- 資料表的 Constraints `Coupon`
+-- 資料表的限制式 `Coupon`
 --
 ALTER TABLE `Coupon`
   ADD CONSTRAINT `fk_CustomerID` FOREIGN KEY (`CustomerID`) REFERENCES `Customer` (`ID_card`);
 
 --
--- 資料表的 Constraints `Movie_Screening_Schedule`
+-- 資料表的限制式 `Movie_Screening_Schedule`
 --
 ALTER TABLE `Movie_Screening_Schedule`
   ADD CONSTRAINT `Movie_Screening_Schedule_ibfk_1` FOREIGN KEY (`Movie_ID`) REFERENCES `Movie` (`Movie_ID`),
   ADD CONSTRAINT `fk_Cinema` FOREIGN KEY (`Cinema_ssn`) REFERENCES `Cinema` (`Cinema_ssn`);
 
 --
--- 資料表的 Constraints `OrderDetail`
+-- 資料表的限制式 `OrderDetail`
 --
 ALTER TABLE `OrderDetail`
+  ADD CONSTRAINT `FK_OrderDetail_Seats` FOREIGN KEY (`SeatID`) REFERENCES `Seats` (`SeatID`),
   ADD CONSTRAINT `OrderDetail_ibfk_1` FOREIGN KEY (`Play_ID`) REFERENCES `Movie_Screening_Schedule` (`Play_ID`),
   ADD CONSTRAINT `OrderDetail_ibfk_2` FOREIGN KEY (`Coupon_ID`) REFERENCES `Coupon` (`CouponID`),
   ADD CONSTRAINT `fk_Cinema_ssn` FOREIGN KEY (`Cinema_ssn`) REFERENCES `Cinema` (`Cinema_ssn`);
+
+--
+-- 資料表的限制式 `Seats`
+--
+ALTER TABLE `Seats`
+  ADD CONSTRAINT `FK_SeatCustomerID` FOREIGN KEY (`SeatCustomerID_card`) REFERENCES `Customer` (`ID_card`),
+  ADD CONSTRAINT `FK_Seats_PlayID_1` FOREIGN KEY (`PlayID`) REFERENCES `Movie_Screening_Schedule` (`Play_ID`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
