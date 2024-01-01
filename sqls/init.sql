@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： database:3306
--- 產生時間： 2024 年 01 月 01 日 16:04
+-- 產生時間： 2024 年 01 月 01 日 16:10
 -- 伺服器版本： 5.7.44
 -- PHP 版本： 8.2.8
 
@@ -80,17 +80,18 @@ CREATE TABLE `Customer` (
   `Sex` varchar(255) DEFAULT NULL,
   `Register_date` date DEFAULT NULL,
   `Email` varchar(255) DEFAULT NULL,
-  `Address` varchar(255) DEFAULT NULL
+  `Address` varchar(255) DEFAULT NULL,
+  `Password` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- 傾印資料表的資料 `Customer`
 --
 
-INSERT INTO `Customer` (`ID_card`, `Name`, `Sex`, `Register_date`, `Email`, `Address`) VALUES
-('A123456789', 'John Doe', 'Male', '2023-01-01', 'john.doe@example.com', '123 Main St'),
-('B987654321', 'Jane Smith', 'Female', '2023-01-02', 'jane.smith@example.com', '456 Oak St'),
-('C111223344', 'Chris Johnson', 'Male', '2023-01-03', 'chris.johnson@example.com', '789 Pine St');
+INSERT INTO `Customer` (`ID_card`, `Name`, `Sex`, `Register_date`, `Email`, `Address`, `Password`) VALUES
+('A123456789', 'John Doe', 'Male', '2023-01-01', 'john.doe@example.com', '123 Main St', ''),
+('B987654321', 'Jane Smith', 'Female', '2023-01-02', 'jane.smith@example.com', '456 Oak St', ''),
+('C111223344', 'Chris Johnson', 'Male', '2023-01-03', 'chris.johnson@example.com', '789 Pine St', '');
 
 -- --------------------------------------------------------
 
