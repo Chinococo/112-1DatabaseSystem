@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： database:3306
--- 產生時間： 2024 年 01 月 01 日 15:13
+-- 產生時間： 2024 年 01 月 01 日 15:47
 -- 伺服器版本： 5.7.44
 -- PHP 版本： 8.2.8
 
@@ -31,16 +31,17 @@ CREATE TABLE `Cinema` (
   `Cinema_ssn` varchar(255) NOT NULL,
   `Cinema_No` varchar(255) DEFAULT NULL,
   `Theater_Name` varchar(255) DEFAULT NULL,
-  `SeatInformation` json NOT NULL
+  `Seat_Row` int(11) NOT NULL,
+  `Seat_Column` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- 傾印資料表的資料 `Cinema`
 --
 
-INSERT INTO `Cinema` (`Cinema_ssn`, `Cinema_No`, `Theater_Name`, `SeatInformation`) VALUES
-('C001', '1', 'City Cinemas', '{\"0\": {\"0\": 1, \"1\": 0, \"2\": 0}, \"1\": {\"0\": 1, \"1\": 0, \"2\": 0}, \"2\": {\"0\": 1, \"1\": 0, \"2\": 0}, \"3\": {\"0\": 1, \"1\": 0, \"2\": 0}}'),
-('C002', '2', 'City Cinemas', '{\"0\": {\"0\": 1, \"1\": 0, \"2\": 0}, \"1\": {\"0\": 1, \"1\": 0, \"2\": 0}, \"2\": {\"0\": 1, \"1\": 0, \"2\": 0}, \"3\": {\"0\": 1, \"1\": 0, \"2\": 0}}');
+INSERT INTO `Cinema` (`Cinema_ssn`, `Cinema_No`, `Theater_Name`, `Seat_Row`, `Seat_Column`) VALUES
+('C001', '1', 'City Cinemas', 10, 10),
+('C002', '2', 'City Cinemas', 6, 6);
 
 -- --------------------------------------------------------
 
