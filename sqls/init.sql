@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： database:3306
--- 產生時間： 2024 年 01 月 01 日 16:10
+-- 產生時間： 2024 年 01 月 01 日 16:12
 -- 伺服器版本： 5.7.44
 -- PHP 版本： 8.2.8
 
@@ -151,7 +151,6 @@ CREATE TABLE `Movie_Screening_Schedule` (
   `date` date DEFAULT NULL,
   `PlayTime` time NOT NULL,
   `Cinema_ssn` varchar(255) NOT NULL,
-  `Cinema_NO` int(11) DEFAULT NULL,
   `Movie_ID` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -159,10 +158,10 @@ CREATE TABLE `Movie_Screening_Schedule` (
 -- 傾印資料表的資料 `Movie_Screening_Schedule`
 --
 
-INSERT INTO `Movie_Screening_Schedule` (`Play_ID`, `date`, `PlayTime`, `Cinema_ssn`, `Cinema_NO`, `Movie_ID`) VALUES
-('PLAY001', '2023-01-15', '15:00:00', 'C001', 1, '1'),
-('PLAY002', '2023-02-10', '18:30:00', 'C001', 1, '2'),
-('PLAY003', '2023-03-05', '20:00:00', 'C002', 2, '3');
+INSERT INTO `Movie_Screening_Schedule` (`Play_ID`, `date`, `PlayTime`, `Cinema_ssn`, `Movie_ID`) VALUES
+('PLAY001', '2023-01-15', '15:00:00', 'C001', '1'),
+('PLAY002', '2023-02-10', '18:30:00', 'C001', '2'),
+('PLAY003', '2023-03-05', '20:00:00', 'C002', '3');
 
 -- --------------------------------------------------------
 
