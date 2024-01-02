@@ -184,7 +184,7 @@ app.get('/theaters/:theaters_Name', (req, res) => {
     LEFT JOIN
         Seats ON Movie_Screening_Schedule.Play_ID = Seats.PlayID
     WHERE 
-        Cinema.Theater_Name = "台北信義威秀影城"
+        Cinema.Theater_Name = ?
     GROUP BY
         Movie_Screening_Schedule.PlayTime,
         Movie_Screening_Schedule.Movie_ID,
