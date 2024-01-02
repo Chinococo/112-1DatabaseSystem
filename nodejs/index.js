@@ -388,6 +388,31 @@ app.post('/AddNotification', (req, res) => {
     });
   });
 });
+app.get('/GetNotification', (req, res) => {
+  const { date } = req.query; // Use req.query to get parameters from the query string
+  
+  pool.getConnection((err, connection) => {
+    if (err) {
+      console.log(err.message);
+      res.status(500).json({ status: "unsuccess", message: `MySQL connection error: ${err.message}` });
+      return;
+    }
+
+    // Use a WHERE clause with LIKE for fuzzy search
+    const sql = 'SELECT * FROM `Notification` WHERE `Start_Date` <= ? AND ? <= `End_Date`;';
+    const values = [date,date];
+    
+    connection.query(sql, values, (queryErr, results) => {
+      if (queryErr) {
+        console.log(queryErr.message);
+        res.status(500).json({ status: "unsuccess", message: `MySQL query error: ${queryErr.message}` });
+      } else {
+        res.json({ status: "success", Notification: results});
+      }
+      connection.release();
+    });
+  });
+});
 // 啟動伺服器
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
