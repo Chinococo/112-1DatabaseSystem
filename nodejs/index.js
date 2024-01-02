@@ -276,7 +276,118 @@ app.post('/Transaction', (req, res) => {
     });
   });
 });
+app.post('/Coupon', (req, res) => {
+  const {ID_card } = req.body;
+  pool.getConnection((err, connection) => {
+    if (err) {
+      console.log(err.message);
+      res.status(500).json({ status: "unsuccess", message: `MySQL connection error: ${err.message}` });
+      return;
+    }
+    // Use a WHERE clause with LIKE for fuzzy search
+    const sql = 'SELECT * FROM Coupon WHERE `CustomerID`= ?;';
+    const values = [ID_card];
+    connection.query(sql, values, (queryErr, results) => {
+      if (queryErr) {
+        console.log(queryErr.message);
+        res.status(500).json({ status: "unsuccess", message: `MySQL query error: ${queryErr.message}` });
+      } else {
+        res.json({ status: "success", Coupon: results });
+      }
+      connection.release();
+    });
+  });
+});
+app.post('/Tickets', (req, res) => {
+  const {ID_card } = req.body;
+  pool.getConnection((err, connection) => {
+    if (err) {
+      console.log(err.message);
+      res.status(500).json({ status: "unsuccess", message: `MySQL connection error: ${err.message}` });
+      return;
+    }
+    // Use a WHERE clause with LIKE for fuzzy search
+    const sql = 'SELECT * FROM OrderDetail WHERE `ID_card`= ?;';
+    const values = [ID_card];
+    connection.query(sql, values, (queryErr, results) => {
+      if (queryErr) {
+        console.log(queryErr.message);
+        res.status(500).json({ status: "unsuccess", message: `MySQL query error: ${queryErr.message}` });
+      } else {
+        res.json({ status: "success", Tickets: results });
+      }
+      connection.release();
+    });
+  });
+});
 
+app.post('/AddMovie', (req, res) => {
+  const {Type,Actors,Rate,Director,Name,Duration,image,information} = req.body;
+  pool.getConnection((err, connection) => {
+    if (err) {
+      console.log(err.message);
+      res.status(500).json({ status: "unsuccess", message: `MySQL connection error: ${err.message}` });
+      return;
+    }
+    // Use a WHERE clause with LIKE for fuzzy search
+    const sql = 'INSERT INTO `Movie`(`Movie_ID`, `Type`, `Actors`, `Rate`, `Director`, `Name`, `Duration`, `image`, `information`) VALUES (?,?,?,?,?,?,?,?,?)';
+    const values = [generateRandomString(16),Type,Actors,Rate,Director,Name,Duration,image,information];
+    connection.query(sql, values, (queryErr, results) => {
+      if (queryErr) {
+        console.log(queryErr.message);
+        res.status(500).json({ status: "unsuccess", message: `MySQL query error: ${queryErr.message}` });
+      } else {
+        res.json({ status: "success", Tickets: results });
+      }
+      connection.release();
+    });
+  });
+});
+app.post('/UpdateMovie', (req, res) => {
+  const {Movie_ID,Type,Actors,Rate,Director,Name,Duration,image,information} = req.body;
+  pool.getConnection((err, connection) => {
+    if (err) {
+      console.log(err.message);
+      res.status(500).json({ status: "unsuccess", message: `MySQL connection error: ${err.message}` });
+      return;
+    }
+    // Use a WHERE clause with LIKE for fuzzy search
+    const sql = 'UPDATE `Movie` SET `Type`=?,`Actors`=?,`Rate`=?,`Director`=?,`Name`=?,`Duration`=?,`image`=?,`information`=? where Movie_ID=?';
+    const values = [Type,Actors,Rate,Director,Name,Duration,image,information,Movie_ID];
+    console.log(values);
+    connection.query(sql, values, (queryErr, results) => {
+      if (queryErr) {
+        console.log(queryErr.message);
+        res.status(500).json({ status: "unsuccess", message: `MySQL query error: ${queryErr.message}` });
+      } else {
+        res.json({ status: "success", Tickets: results });
+      }
+      connection.release();
+    });
+  });
+});
+app.post('/AddNotification', (req, res) => {
+  const {Message, Start_Date, End_Date} = req.body;
+  pool.getConnection((err, connection) => {
+    if (err) {
+      console.log(err.message);
+      res.status(500).json({ status: "unsuccess", message: `MySQL connection error: ${err.message}` });
+      return;
+    }
+    // Use a WHERE clause with LIKE for fuzzy search
+    const sql = 'INSERT INTO `Notification`( `Message`, `Start_Date`, `End_Date`) VALUES (?,?,?)';
+    const values = [Message, Start_Date, End_Date];
+    connection.query(sql, values, (queryErr, results) => {
+      if (queryErr) {
+        console.log(queryErr.message);
+        res.status(500).json({ status: "unsuccess", message: `MySQL query error: ${queryErr.message}` });
+      } else {
+        res.json({ status: "success", Tickets: results });
+      }
+      connection.release();
+    });
+  });
+});
 // 啟動伺服器
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

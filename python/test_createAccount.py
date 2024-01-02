@@ -199,3 +199,115 @@ def test_Transaction():
     # Ensure the actual response matches the expected response
     assert actual_response["status"] == expected_response["status"];
     print(actual_response)   
+def test_GetCopun():
+    # Make a GET request to the API
+    url = "http://localhost:5000/Coupon"
+    expected_response = {"status": "success"};
+    data = {
+        "ID_card" : "A123456789",
+    }
+    response = requests.post(url,json=data)
+
+    # Ensure the response has a status code of 200
+    assert response.status_code == 200
+
+    # Parse the JSON response
+    actual_response = response.json()
+
+    # Ensure the actual response matches the expected response
+    assert actual_response["status"] == expected_response["status"];
+    assert len(actual_response["Coupon"])>0
+    print(actual_response) 
+def test_GetTickets():
+    # Make a GET request to the API
+    url = "http://localhost:5000/Tickets"
+    expected_response = {"status": "success"};
+    data = {
+        "ID_card" : "A123456789",
+    }
+    response = requests.post(url,json=data)
+
+    # Ensure the response has a status code of 200
+    assert response.status_code == 200
+
+    # Parse the JSON response
+    actual_response = response.json()
+
+    # Ensure the actual response matches the expected response
+    assert actual_response["status"] == expected_response["status"];
+    assert len(actual_response["Tickets"])>0
+    print(actual_response)       
+def test_AddMovie():
+    # Make a GET request to the API
+    url = "http://localhost:5000/AddMovie"
+    expected_response = {"status": "success"};
+    data = {
+        "Type": "Action",
+        "Actors": "Actor1, Actor2, Actor3",
+        "Rate": "4.5",
+        "Director": "Director Name",
+        "Name": "Movie Title",
+        "Duration": "120",
+        "image": "movie_image_url.jpg",
+        "information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ..."
+    }
+
+    response = requests.post(url,json=data)
+
+    # Ensure the response has a status code of 200
+    assert response.status_code == 200
+
+    # Parse the JSON response
+    actual_response = response.json()
+
+    # Ensure the actual response matches the expected response
+    assert actual_response["status"] == expected_response["status"];
+    print(actual_response)    
+def test_UpdateMovie():
+    # Make a GET request to the API
+    url = "http://localhost:5000/UpdateMovie"
+    expected_response = {"status": "success"};
+    data = {
+        "Movie_ID":"3",
+        "Type": "Action",
+        "Actors": "Actor1, Actor2, Actor3",
+        "Rate": "4.5",
+        "Director": "Director Name",
+        "Name": "Movie Title",
+        "Duration": "120",
+        "image": "movie_image_url.jpg",
+        "information": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ..."
+    }
+
+    response = requests.post(url,json=data)
+
+    # Ensure the response has a status code of 200
+    assert response.status_code == 200
+
+    # Parse the JSON response
+    actual_response = response.json()
+
+    # Ensure the actual response matches the expected response
+    assert actual_response["status"] == expected_response["status"];
+    print(actual_response)      
+def test_AddNotification():
+    # Make a GET request to the API
+    url = "http://localhost:5000/AddNotification"
+    expected_response = {"status": "success"};
+    data = {
+        "Message": "奇怪的節日",
+        "Start_Date": "2023/12/25",
+        "End_Date": "2024/1/5",
+
+    }
+    response = requests.post(url,json=data)
+
+    # Ensure the response has a status code of 200
+    assert response.status_code == 200
+
+    # Parse the JSON response
+    actual_response = response.json()
+
+    # Ensure the actual response matches the expected response
+    assert actual_response["status"] == expected_response["status"];
+    print(actual_response)        

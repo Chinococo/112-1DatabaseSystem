@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： database:3306
--- 產生時間： 2024 年 01 月 01 日 23:32
+-- 產生時間： 2024 年 01 月 02 日 01:02
 -- 伺服器版本： 5.7.44
 -- PHP 版本： 8.2.8
 
@@ -176,7 +176,7 @@ INSERT INTO `Movie_Screening_Schedule` (`Play_ID`, `date`, `PlayTime`, `Cinema_s
 --
 
 CREATE TABLE `Notification` (
-  `NotifyID` varchar(255) NOT NULL,
+  `NotifyID` int(10) NOT NULL,
   `Message` varchar(255) DEFAULT NULL,
   `Start_Date` date DEFAULT NULL,
   `End_Date` date DEFAULT NULL
@@ -187,8 +187,8 @@ CREATE TABLE `Notification` (
 --
 
 INSERT INTO `Notification` (`NotifyID`, `Message`, `Start_Date`, `End_Date`) VALUES
-('NOTIFY001', 'Special Promotion! 10% off on all tickets!', '2023-01-01', '2023-01-15'),
-('NOTIFY002', 'Upcoming Movie Premiere! Book your tickets now!', '2023-02-01', '2023-02-28');
+(1, 'Special Promotion! 10% off on all tickets!', '2023-01-01', '2023-01-15'),
+(2, 'Upcoming Movie Premiere! Book your tickets now!', '2023-02-01', '2023-02-28');
 
 -- --------------------------------------------------------
 
@@ -355,6 +355,12 @@ ALTER TABLE `Ticket`
 --
 -- 在傾印的資料表使用自動遞增(AUTO_INCREMENT)
 --
+
+--
+-- 使用資料表自動遞增(AUTO_INCREMENT) `Notification`
+--
+ALTER TABLE `Notification`
+  MODIFY `NotifyID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `OrderDetail`
