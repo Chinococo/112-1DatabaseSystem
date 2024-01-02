@@ -1,5 +1,5 @@
 # 使用 Node.js 的官方映像
-FROM node:14-alpine
+FROM node:18-alpine
 
 # 設定工作目錄
 WORKDIR /app
@@ -13,5 +13,6 @@ RUN npm install
 # 複製應用程序代碼到容器
 COPY . .
 
+EXPOSE 80
 # 執行應用程序
-CMD ["npm", "start"]
+CMD ["npm", "run","dev"]

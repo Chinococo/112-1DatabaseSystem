@@ -1,14 +1,14 @@
-use database_project;
 -- phpMyAdmin SQL Dump
--- version 4.6.6deb5ubuntu0.5
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- 主機: localhost:3306
--- 產生時間： 2023 年 12 月 07 日 23:05
--- 伺服器版本: 5.7.42-0ubuntu0.18.04.1
--- PHP 版本： 7.2.24-0ubuntu0.18.04.17
+-- 主機： database:3306
+-- 產生時間： 2024 年 01 月 02 日 01:02
+-- 伺服器版本： 5.7.44
+-- PHP 版本： 8.2.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- 資料庫： `admin_Database`
+-- 資料庫： `database_project`
 --
 
 -- --------------------------------------------------------
@@ -31,16 +31,19 @@ CREATE TABLE `Cinema` (
   `Cinema_ssn` varchar(255) NOT NULL,
   `Cinema_No` varchar(255) DEFAULT NULL,
   `Theater_Name` varchar(255) DEFAULT NULL,
-  `SeatInformation` json NOT NULL
+  `Seat_Row` int(11) NOT NULL,
+  `Seat_Column` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- 資料表的匯出資料 `Cinema`
+-- 傾印資料表的資料 `Cinema`
 --
 
-INSERT INTO `Cinema` (`Cinema_ssn`, `Cinema_No`, `Theater_Name`, `SeatInformation`) VALUES
-('C001', '1', 'City Cinemas', '{\"0\": {\"0\": 1, \"1\": 0, \"2\": 0}, \"1\": {\"0\": 1, \"1\": 0, \"2\": 0}, \"2\": {\"0\": 1, \"1\": 0, \"2\": 0}, \"3\": {\"0\": 1, \"1\": 0, \"2\": 0}}'),
-('C002', '2', 'City Cinemas', '{\"0\": {\"0\": 1, \"1\": 0, \"2\": 0}, \"1\": {\"0\": 1, \"1\": 0, \"2\": 0}, \"2\": {\"0\": 1, \"1\": 0, \"2\": 0}, \"3\": {\"0\": 1, \"1\": 0, \"2\": 0}}');
+INSERT INTO `Cinema` (`Cinema_ssn`, `Cinema_No`, `Theater_Name`, `Seat_Row`, `Seat_Column`) VALUES
+('C001', '1', '台北信義威秀影城', 10, 10),
+('C002', '1', '喜滿樂絕色影城', 6, 6),
+('C003', '2', '台北信義威秀影城', 7, 7),
+('C004', '2', '喜滿樂絕色影城', 8, 8);
 
 -- --------------------------------------------------------
 
@@ -59,13 +62,16 @@ CREATE TABLE `Coupon` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- 資料表的匯出資料 `Coupon`
+-- 傾印資料表的資料 `Coupon`
 --
 
 INSERT INTO `Coupon` (`CouponID`, `CustomerID`, `Fee`, `Reason`, `Situation`, `Start_Date`, `End_Date`) VALUES
-('COUP001', 'A123456789', 10, 'Discount', 'Active', '2023-01-01', '2023-01-31'),
 ('COUP002', 'B987654321', 15, 'Special Offer', 'Active', '2023-02-01', '2023-02-28'),
-('COUP003', 'C111223344', 20, 'Birthday Coupon', 'Active', '2023-03-01', '2023-03-31');
+('COUP003', 'C111223344', 20, 'Birthday Coupon', 'Active', '2023-03-01', '2023-03-31'),
+('COUP004', 'A123456789', 10, 'No Discount', 'Active', '2023-01-01', '2033-02-28'),
+('NoDiscount001', 'B987654321', 0, 'No Discount', 'Active', '2023-02-01', '2032-02-29'),
+('NoDiscount002', 'A123456789', 0, 'No Discount', 'Active', '2023-02-01', '2032-02-29'),
+('NoDiscount003', 'C111223344', 0, 'No Discount', 'Active', '2023-02-01', '2032-02-29');
 
 -- --------------------------------------------------------
 
@@ -79,17 +85,18 @@ CREATE TABLE `Customer` (
   `Sex` varchar(255) DEFAULT NULL,
   `Register_date` date DEFAULT NULL,
   `Email` varchar(255) DEFAULT NULL,
-  `Address` varchar(255) DEFAULT NULL
+  `Address` varchar(255) DEFAULT NULL,
+  `Password` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- 資料表的匯出資料 `Customer`
+-- 傾印資料表的資料 `Customer`
 --
 
-INSERT INTO `Customer` (`ID_card`, `Name`, `Sex`, `Register_date`, `Email`, `Address`) VALUES
-('A123456789', 'John Doe', 'Male', '2023-01-01', 'john.doe@example.com', '123 Main St'),
-('B987654321', 'Jane Smith', 'Female', '2023-01-02', 'jane.smith@example.com', '456 Oak St'),
-('C111223344', 'Chris Johnson', 'Male', '2023-01-03', 'chris.johnson@example.com', '789 Pine St');
+INSERT INTO `Customer` (`ID_card`, `Name`, `Sex`, `Register_date`, `Email`, `Address`, `Password`) VALUES
+('A123456789', 'John Doe', 'Male', '2023-01-01', 'john.doe@example.com', '123 Main St', '12345678'),
+('B987654321', 'Jane Smith', 'Female', '2023-01-02', 'jane.smith@example.com', '456 Oak St', '987654321'),
+('C111223344', 'Chris Johnson', 'Male', '2023-01-03', 'chris.johnson@example.com', '789 Pine St', '918273645');
 
 -- --------------------------------------------------------
 
@@ -104,7 +111,7 @@ CREATE TABLE `Employee` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- 資料表的匯出資料 `Employee`
+-- 傾印資料表的資料 `Employee`
 --
 
 INSERT INTO `Employee` (`Employee_ID`, `Position`, `Name`) VALUES
@@ -126,17 +133,18 @@ CREATE TABLE `Movie` (
   `Director` varchar(255) DEFAULT NULL,
   `Name` varchar(255) DEFAULT NULL,
   `Duration` int(11) DEFAULT NULL,
-  `image` varchar(255) DEFAULT NULL
+  `image` varchar(255) DEFAULT NULL,
+  `information` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- 資料表的匯出資料 `Movie`
+-- 傾印資料表的資料 `Movie`
 --
 
-INSERT INTO `Movie` (`Movie_ID`, `Type`, `Actors`, `Rate`, `Director`, `Name`, `Duration`, `image`) VALUES
-('1', 'Action', 'Tom Cruise, Scarlett Johansson', 9, 'Christopher Nolan', 'Inception', 150, 'inception.jpg'),
-('2', 'Comedy', 'Ryan Reynolds, Emma Stone', 8, 'Taika Waititi', 'Deadpool', 120, 'deadpool.jpg'),
-('3', 'Drama', 'Brad Pitt, Cate Blanchett', 9, 'Quentin Tarantino', 'Pulp Fiction', 154, 'pulpfiction.jpg');
+INSERT INTO `Movie` (`Movie_ID`, `Type`, `Actors`, `Rate`, `Director`, `Name`, `Duration`, `image`, `information`) VALUES
+('1', 'Action', 'Tom Cruise, Scarlett Johansson', 9, 'Christopher Nolan', 'Inception', 150, 'inception.jpg', '幹片1'),
+('2', 'Comedy', 'Ryan Reynolds, Emma Stone', 8, 'Taika Waititi', 'Deadpool', 120, 'deadpool.jpg', '幹片2'),
+('3', 'Drama', 'Brad Pitt, Cate Blanchett', 9, 'Quentin Tarantino', 'Pulp Fiction', 154, 'pulpfiction.jpg', '幹片3');
 
 -- --------------------------------------------------------
 
@@ -149,18 +157,17 @@ CREATE TABLE `Movie_Screening_Schedule` (
   `date` date DEFAULT NULL,
   `PlayTime` time NOT NULL,
   `Cinema_ssn` varchar(255) NOT NULL,
-  `Cinema_NO` int(11) DEFAULT NULL,
   `Movie_ID` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- 資料表的匯出資料 `Movie_Screening_Schedule`
+-- 傾印資料表的資料 `Movie_Screening_Schedule`
 --
 
-INSERT INTO `Movie_Screening_Schedule` (`Play_ID`, `date`, `PlayTime`, `Cinema_ssn`, `Cinema_NO`, `Movie_ID`) VALUES
-('PLAY001', '2023-01-15', '15:00:00', 'C001', 1, '1'),
-('PLAY002', '2023-02-10', '18:30:00', 'C001', 1, '2'),
-('PLAY003', '2023-03-05', '20:00:00', 'C002', 2, '3');
+INSERT INTO `Movie_Screening_Schedule` (`Play_ID`, `date`, `PlayTime`, `Cinema_ssn`, `Movie_ID`) VALUES
+('PLAY001', '2023-01-15', '15:00:00', 'C001', '1'),
+('PLAY002', '2023-02-10', '18:30:00', 'C001', '2'),
+('PLAY003', '2023-03-05', '20:00:00', 'C002', '3');
 
 -- --------------------------------------------------------
 
@@ -169,19 +176,19 @@ INSERT INTO `Movie_Screening_Schedule` (`Play_ID`, `date`, `PlayTime`, `Cinema_s
 --
 
 CREATE TABLE `Notification` (
-  `NotifyID` varchar(255) NOT NULL,
+  `NotifyID` int(10) NOT NULL,
   `Message` varchar(255) DEFAULT NULL,
   `Start_Date` date DEFAULT NULL,
   `End_Date` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- 資料表的匯出資料 `Notification`
+-- 傾印資料表的資料 `Notification`
 --
 
 INSERT INTO `Notification` (`NotifyID`, `Message`, `Start_Date`, `End_Date`) VALUES
-('NOTIFY001', 'Special Promotion! 10% off on all tickets!', '2023-01-01', '2023-01-15'),
-('NOTIFY002', 'Upcoming Movie Premiere! Book your tickets now!', '2023-02-01', '2023-02-28');
+(1, 'Special Promotion! 10% off on all tickets!', '2023-01-01', '2023-01-15'),
+(2, 'Upcoming Movie Premiere! Book your tickets now!', '2023-02-01', '2023-02-28');
 
 -- --------------------------------------------------------
 
@@ -190,26 +197,43 @@ INSERT INTO `Notification` (`NotifyID`, `Message`, `Start_Date`, `End_Date`) VAL
 --
 
 CREATE TABLE `OrderDetail` (
-  `Order_ID` varchar(255) NOT NULL,
-  `Order_Date` date DEFAULT NULL,
+  `Order_ID` int(10) NOT NULL,
   `Ship_Date` date DEFAULT NULL,
-  `Quantity` int(11) DEFAULT NULL,
   `status` varchar(11) DEFAULT NULL,
-  `Cinema_ssn` varchar(255) DEFAULT NULL,
-  `Seat_Row` varchar(255) NOT NULL,
-  `Seat_Number` varchar(255) NOT NULL,
-  `Price` int(11) DEFAULT NULL,
-  `Play_ID` varchar(255) DEFAULT NULL,
-  `Coupon_ID` varchar(255) DEFAULT NULL
+  `Coupon_ID` varchar(255) DEFAULT NULL,
+  `SeatID` int(11) NOT NULL,
+  `TicketType` varchar(10) NOT NULL,
+  `ID_card` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- 資料表的匯出資料 `OrderDetail`
+-- 傾印資料表的資料 `OrderDetail`
 --
 
-INSERT INTO `OrderDetail` (`Order_ID`, `Order_Date`, `Ship_Date`, `Quantity`, `status`, `Cinema_ssn`, `Seat_Row`, `Seat_Number`, `Price`, `Play_ID`, `Coupon_ID`) VALUES
-('ORDER001', '2023-01-20', '2023-01-25', 2, 'Shipped', 'C001', 'A', '1', 20, 'PLAY001', 'COUP002'),
-('ORDER002', '2023-02-05', '2023-02-10', 3, 'Pending', 'C002', 'B', '2', 26, 'PLAY002', 'COUP003');
+INSERT INTO `OrderDetail` (`Order_ID`, `Ship_Date`, `status`, `Coupon_ID`, `SeatID`, `TicketType`, `ID_card`) VALUES
+(1, '2023-01-25', 'Shipped', 'COUP002', 1, '學生票', 'A123456789'),
+(2, '2023-02-10', 'Pending', 'COUP003', 2, '成人票', 'B987654321');
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `Seats`
+--
+
+CREATE TABLE `Seats` (
+  `SeatID` int(11) NOT NULL,
+  `SeatRow` int(50) DEFAULT NULL,
+  `SeatColumn` int(10) DEFAULT NULL,
+  `PlayID` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 傾印資料表的資料 `Seats`
+--
+
+INSERT INTO `Seats` (`SeatID`, `SeatRow`, `SeatColumn`, `PlayID`) VALUES
+(1, 10, 5, 'PLAY001'),
+(2, 10, 5, 'PLAY002');
 
 -- --------------------------------------------------------
 
@@ -223,15 +247,34 @@ CREATE TABLE `Theater` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- 資料表的匯出資料 `Theater`
+-- 傾印資料表的資料 `Theater`
 --
 
 INSERT INTO `Theater` (`Name`, `Business_Address`) VALUES
-('City Cinemas', '123 Broadway Ave'),
-('Starplex Cinemas', '456 Main St');
+('台北信義威秀影城', '110 臺北市信義區松壽路20號1樓'),
+('喜滿樂絕色影城', '108 臺北市萬華區西門町漢中街52號8-11樓 ');
+
+-- --------------------------------------------------------
 
 --
--- 已匯出資料表的索引
+-- 資料表結構 `Ticket`
+--
+
+CREATE TABLE `Ticket` (
+  `TicketType` varchar(10) CHARACTER SET utf8 NOT NULL,
+  `Price` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- 傾印資料表的資料 `Ticket`
+--
+
+INSERT INTO `Ticket` (`TicketType`, `Price`) VALUES
+('學生票', 100),
+('成人票', 150);
+
+--
+-- 已傾印資料表的索引
 --
 
 --
@@ -285,9 +328,17 @@ ALTER TABLE `Notification`
 --
 ALTER TABLE `OrderDetail`
   ADD PRIMARY KEY (`Order_ID`),
-  ADD KEY `Play_ID` (`Play_ID`),
   ADD KEY `Coupon_ID` (`Coupon_ID`),
-  ADD KEY `fk_Cinema_ssn` (`Cinema_ssn`);
+  ADD KEY `FK_OrderDetail_Seats` (`SeatID`),
+  ADD KEY `fk_orderdetail_ticket` (`TicketType`),
+  ADD KEY `fk_OrderDetail_Customer` (`ID_card`);
+
+--
+-- 資料表索引 `Seats`
+--
+ALTER TABLE `Seats`
+  ADD PRIMARY KEY (`SeatID`) USING BTREE,
+  ADD KEY `FK_Seats_PlayID_1` (`PlayID`);
 
 --
 -- 資料表索引 `Theater`
@@ -296,35 +347,71 @@ ALTER TABLE `Theater`
   ADD PRIMARY KEY (`Name`);
 
 --
--- 已匯出資料表的限制(Constraint)
+-- 資料表索引 `Ticket`
+--
+ALTER TABLE `Ticket`
+  ADD UNIQUE KEY `TicketType` (`TicketType`);
+
+--
+-- 在傾印的資料表使用自動遞增(AUTO_INCREMENT)
 --
 
 --
--- 資料表的 Constraints `Cinema`
+-- 使用資料表自動遞增(AUTO_INCREMENT) `Notification`
+--
+ALTER TABLE `Notification`
+  MODIFY `NotifyID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- 使用資料表自動遞增(AUTO_INCREMENT) `OrderDetail`
+--
+ALTER TABLE `OrderDetail`
+  MODIFY `Order_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- 使用資料表自動遞增(AUTO_INCREMENT) `Seats`
+--
+ALTER TABLE `Seats`
+  MODIFY `SeatID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- 已傾印資料表的限制式
+--
+
+--
+-- 資料表的限制式 `Cinema`
 --
 ALTER TABLE `Cinema`
   ADD CONSTRAINT `fk_Theater_Name` FOREIGN KEY (`Theater_Name`) REFERENCES `Theater` (`Name`);
 
 --
--- 資料表的 Constraints `Coupon`
+-- 資料表的限制式 `Coupon`
 --
 ALTER TABLE `Coupon`
   ADD CONSTRAINT `fk_CustomerID` FOREIGN KEY (`CustomerID`) REFERENCES `Customer` (`ID_card`);
 
 --
--- 資料表的 Constraints `Movie_Screening_Schedule`
+-- 資料表的限制式 `Movie_Screening_Schedule`
 --
 ALTER TABLE `Movie_Screening_Schedule`
   ADD CONSTRAINT `Movie_Screening_Schedule_ibfk_1` FOREIGN KEY (`Movie_ID`) REFERENCES `Movie` (`Movie_ID`),
   ADD CONSTRAINT `fk_Cinema` FOREIGN KEY (`Cinema_ssn`) REFERENCES `Cinema` (`Cinema_ssn`);
 
 --
--- 資料表的 Constraints `OrderDetail`
+-- 資料表的限制式 `OrderDetail`
 --
 ALTER TABLE `OrderDetail`
-  ADD CONSTRAINT `OrderDetail_ibfk_1` FOREIGN KEY (`Play_ID`) REFERENCES `Movie_Screening_Schedule` (`Play_ID`),
+  ADD CONSTRAINT `FK_OrderDetail_Seats` FOREIGN KEY (`SeatID`) REFERENCES `Seats` (`SeatID`),
   ADD CONSTRAINT `OrderDetail_ibfk_2` FOREIGN KEY (`Coupon_ID`) REFERENCES `Coupon` (`CouponID`),
-  ADD CONSTRAINT `fk_Cinema_ssn` FOREIGN KEY (`Cinema_ssn`) REFERENCES `Cinema` (`Cinema_ssn`);
+  ADD CONSTRAINT `fk_OrderDetail_Customer` FOREIGN KEY (`ID_card`) REFERENCES `Customer` (`ID_card`),
+  ADD CONSTRAINT `fk_orderdetail_ticket` FOREIGN KEY (`TicketType`) REFERENCES `Ticket` (`TicketType`);
+
+--
+-- 資料表的限制式 `Seats`
+--
+ALTER TABLE `Seats`
+  ADD CONSTRAINT `FK_Seats_PlayID_1` FOREIGN KEY (`PlayID`) REFERENCES `Movie_Screening_Schedule` (`Play_ID`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
