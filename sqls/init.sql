@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： database:3306
--- 產生時間： 2024 年 01 月 01 日 20:24
+-- 產生時間： 2024 年 01 月 01 日 23:32
 -- 伺服器版本： 5.7.44
 -- PHP 版本： 8.2.8
 
@@ -197,24 +197,22 @@ INSERT INTO `Notification` (`NotifyID`, `Message`, `Start_Date`, `End_Date`) VAL
 --
 
 CREATE TABLE `OrderDetail` (
-  `Order_ID` varchar(255) NOT NULL,
-  `Order_Date` date DEFAULT NULL,
+  `Order_ID` int(10) NOT NULL,
   `Ship_Date` date DEFAULT NULL,
   `status` varchar(11) DEFAULT NULL,
-  `Cinema_ssn` varchar(255) DEFAULT NULL,
-  `Price` int(11) DEFAULT NULL,
-  `Play_ID` varchar(255) DEFAULT NULL,
   `Coupon_ID` varchar(255) DEFAULT NULL,
-  `SeatID` int(11) NOT NULL
+  `SeatID` int(11) NOT NULL,
+  `TicketType` varchar(10) NOT NULL,
+  `ID_card` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- 傾印資料表的資料 `OrderDetail`
 --
 
-INSERT INTO `OrderDetail` (`Order_ID`, `Order_Date`, `Ship_Date`, `status`, `Cinema_ssn`, `Price`, `Play_ID`, `Coupon_ID`, `SeatID`) VALUES
-('ORDER001', '2023-01-20', '2023-01-25', 'Shipped', 'C001', 20, 'PLAY001', 'COUP002', 1),
-('ORDER002', '2023-02-05', '2023-02-10', 'Pending', 'C002', 26, 'PLAY002', 'COUP003', 2);
+INSERT INTO `OrderDetail` (`Order_ID`, `Ship_Date`, `status`, `Coupon_ID`, `SeatID`, `TicketType`, `ID_card`) VALUES
+(1, '2023-01-25', 'Shipped', 'COUP002', 1, '學生票', 'A123456789'),
+(2, '2023-02-10', 'Pending', 'COUP003', 2, '成人票', 'B987654321');
 
 -- --------------------------------------------------------
 
@@ -226,17 +224,16 @@ CREATE TABLE `Seats` (
   `SeatID` int(11) NOT NULL,
   `SeatRow` int(50) DEFAULT NULL,
   `SeatColumn` int(10) DEFAULT NULL,
-  `PlayID` varchar(255) NOT NULL,
-  `SeatCustomerID_card` varchar(255) NOT NULL
+  `PlayID` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- 傾印資料表的資料 `Seats`
 --
 
-INSERT INTO `Seats` (`SeatID`, `SeatRow`, `SeatColumn`, `PlayID`, `SeatCustomerID_card`) VALUES
-(1, 10, 5, 'PLAY001', 'A123456789'),
-(2, 10, 5, 'PLAY002', 'B987654321');
+INSERT INTO `Seats` (`SeatID`, `SeatRow`, `SeatColumn`, `PlayID`) VALUES
+(1, 10, 5, 'PLAY001'),
+(2, 10, 5, 'PLAY002');
 
 -- --------------------------------------------------------
 
@@ -256,6 +253,25 @@ CREATE TABLE `Theater` (
 INSERT INTO `Theater` (`Name`, `Business_Address`) VALUES
 ('台北信義威秀影城', '110 臺北市信義區松壽路20號1樓'),
 ('喜滿樂絕色影城', '108 臺北市萬華區西門町漢中街52號8-11樓 ');
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `Ticket`
+--
+
+CREATE TABLE `Ticket` (
+  `TicketType` varchar(10) CHARACTER SET utf8 NOT NULL,
+  `Price` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- 傾印資料表的資料 `Ticket`
+--
+
+INSERT INTO `Ticket` (`TicketType`, `Price`) VALUES
+('學生票', 100),
+('成人票', 150);
 
 --
 -- 已傾印資料表的索引
@@ -312,24 +328,45 @@ ALTER TABLE `Notification`
 --
 ALTER TABLE `OrderDetail`
   ADD PRIMARY KEY (`Order_ID`),
-  ADD KEY `Play_ID` (`Play_ID`),
   ADD KEY `Coupon_ID` (`Coupon_ID`),
-  ADD KEY `fk_Cinema_ssn` (`Cinema_ssn`),
-  ADD KEY `FK_OrderDetail_Seats` (`SeatID`);
+  ADD KEY `FK_OrderDetail_Seats` (`SeatID`),
+  ADD KEY `fk_orderdetail_ticket` (`TicketType`),
+  ADD KEY `fk_OrderDetail_Customer` (`ID_card`);
 
 --
 -- 資料表索引 `Seats`
 --
 ALTER TABLE `Seats`
-  ADD PRIMARY KEY (`SeatID`),
-  ADD KEY `FK_Seats_PlayID_1` (`PlayID`),
-  ADD KEY `FK_SeatCustomerID` (`SeatCustomerID_card`);
+  ADD PRIMARY KEY (`SeatID`) USING BTREE,
+  ADD KEY `FK_Seats_PlayID_1` (`PlayID`);
 
 --
 -- 資料表索引 `Theater`
 --
 ALTER TABLE `Theater`
   ADD PRIMARY KEY (`Name`);
+
+--
+-- 資料表索引 `Ticket`
+--
+ALTER TABLE `Ticket`
+  ADD UNIQUE KEY `TicketType` (`TicketType`);
+
+--
+-- 在傾印的資料表使用自動遞增(AUTO_INCREMENT)
+--
+
+--
+-- 使用資料表自動遞增(AUTO_INCREMENT) `OrderDetail`
+--
+ALTER TABLE `OrderDetail`
+  MODIFY `Order_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- 使用資料表自動遞增(AUTO_INCREMENT) `Seats`
+--
+ALTER TABLE `Seats`
+  MODIFY `SeatID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- 已傾印資料表的限制式
@@ -359,15 +396,14 @@ ALTER TABLE `Movie_Screening_Schedule`
 --
 ALTER TABLE `OrderDetail`
   ADD CONSTRAINT `FK_OrderDetail_Seats` FOREIGN KEY (`SeatID`) REFERENCES `Seats` (`SeatID`),
-  ADD CONSTRAINT `OrderDetail_ibfk_1` FOREIGN KEY (`Play_ID`) REFERENCES `Movie_Screening_Schedule` (`Play_ID`),
   ADD CONSTRAINT `OrderDetail_ibfk_2` FOREIGN KEY (`Coupon_ID`) REFERENCES `Coupon` (`CouponID`),
-  ADD CONSTRAINT `fk_Cinema_ssn` FOREIGN KEY (`Cinema_ssn`) REFERENCES `Cinema` (`Cinema_ssn`);
+  ADD CONSTRAINT `fk_OrderDetail_Customer` FOREIGN KEY (`ID_card`) REFERENCES `Customer` (`ID_card`),
+  ADD CONSTRAINT `fk_orderdetail_ticket` FOREIGN KEY (`TicketType`) REFERENCES `Ticket` (`TicketType`);
 
 --
 -- 資料表的限制式 `Seats`
 --
 ALTER TABLE `Seats`
-  ADD CONSTRAINT `FK_SeatCustomerID` FOREIGN KEY (`SeatCustomerID_card`) REFERENCES `Customer` (`ID_card`),
   ADD CONSTRAINT `FK_Seats_PlayID_1` FOREIGN KEY (`PlayID`) REFERENCES `Movie_Screening_Schedule` (`Play_ID`);
 COMMIT;
 

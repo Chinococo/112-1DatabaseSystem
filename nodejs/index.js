@@ -168,18 +168,31 @@ app.get('/theaters/:theaters_Name', (req, res) => {
 
     // Use a WHERE clause to filter by movieName
     const sql = `
-      SELECT 
+    SELECT 
         Movie_Screening_Schedule.PlayTime,
         Movie_Screening_Schedule.Movie_ID,
         Cinema.Theater_Name,
-        Movie.* 
-      FROM 
+        Movie.*,
+        (Cinema.Seat_Row * Cinema.Seat_Column) AS OriginalSeats,
+        (Cinema.Seat_Row * Cinema.Seat_Column) - COUNT(Seats.SeatID) AS RemainingSeats
+    FROM 
         Movie_Screening_Schedule 
-      JOIN 
+    JOIN 
         Cinema ON Movie_Screening_Schedule.Cinema_ssn = Cinema.Cinema_ssn 
-      JOIN 
-        Movie ON Movie_Screening_Schedule.Movie_ID = Movie.Movie_ID 
-      WHERE Cinema.Theater_Name = ?;`;
+    JOIN 
+        Movie ON Movie_Screening_Schedule.Movie_ID = Movie.Movie_ID
+    LEFT JOIN
+        Seats ON Movie_Screening_Schedule.Play_ID = Seats.PlayID
+    WHERE 
+        Cinema.Theater_Name = "台北信義威秀影城"
+    GROUP BY
+        Movie_Screening_Schedule.PlayTime,
+        Movie_Screening_Schedule.Movie_ID,
+        Cinema.Theater_Name,
+        Movie.Movie_ID,  -- Assuming Movie has a primary key Movie_ID
+        Cinema.Seat_Row,
+        Cinema.Seat_Column;
+`;
     const values = [theaters_Name];
     console.log(values);
     connection.query(sql, values, (queryErr, results) => {
@@ -193,6 +206,77 @@ app.get('/theaters/:theaters_Name', (req, res) => {
     });
   });
 });
+app.get('/GetMovie', (req, res) => {
+  const { q } = req.query; // Use req.query to get parameters from the query string
+  
+  pool.getConnection((err, connection) => {
+    if (err) {
+      console.log(err.message);
+      res.status(500).json({ status: "unsuccess", message: `MySQL connection error: ${err.message}` });
+      return;
+    }
+
+    // Use a WHERE clause with LIKE for fuzzy search
+    const sql = 'SELECT * FROM `Movie` WHERE Name LIKE ?';
+    const fuzzySearchTerm = `%${q}%`; // Surround the search term with % for fuzzy search
+    const values = [fuzzySearchTerm];
+    
+    connection.query(sql, values, (queryErr, results) => {
+      if (queryErr) {
+        console.log(queryErr.message);
+        res.status(500).json({ status: "unsuccess", message: `MySQL query error: ${queryErr.message}` });
+      } else {
+        res.json({ status: "success", movies: results });
+      }
+      connection.release();
+    });
+  });
+});
+app.post('/Transaction', (req, res) => {
+  const { Play_ID, Seta_Row, Seta_Column, CustomerID_card, Coupon_ID, TicketType } = req.body;
+  // 插入数据到 Seats 表
+  const insertSeatsQuery = "INSERT INTO `Seats` (`SeatRow`, `SeatColumn`, `PlayID`) VALUES (?, ?, ?)";
+  const seatsValues = [Seta_Row, Seta_Column, Play_ID];
+  pool.getConnection((err, connection) => {
+    if (err) {
+      res.status(500).json({ status: "unsuccess", message: `MySQL connection error: ${err.message}` });
+      console.log(err.message);
+      // 处理数据库连接错误
+      return;
+    }
+
+    connection.query(insertSeatsQuery, seatsValues, (seatsQueryErr, seatsResults) => {
+      if (seatsQueryErr) {
+        console.log(seatsQueryErr.message);
+        res.status(500).json({ status: "unsuccess", message: `MySQL query error: ${seatsQueryErr.message}` });
+        // 处理 Seats 表插入错误
+        connection.release();
+        return;
+      }
+
+      // 获取刚插入的 SeatID
+      const seatID = seatsResults.insertId;
+      console.log(seatsResults.insertId);
+      // 插入数据到 OrderDetail 表
+      const insertOrderDetailQuery = "INSERT INTO `OrderDetail`(`Ship_Date`, `status`, `Coupon_ID`, `SeatID`, `TicketType`,`ID_card`) VALUES ( NOW(),'unpayment',?, ?, ?, ?)";
+      const orderDetailValues = [Coupon_ID,seatID, TicketType, CustomerID_card];
+
+      connection.query(insertOrderDetailQuery, orderDetailValues, (orderDetailQueryErr, orderDetailResults) => {
+        if (orderDetailQueryErr) {
+          console.log(orderDetailQueryErr.message);
+          res.status(500).json({ status: "unsuccess", message: `MySQL query error: ${orderDetailQueryErr.message}` });
+        } else {
+          console.log("Data inserted successfully");
+          res.json({ status: "success"});
+        }
+
+        // 释放连接
+        connection.release();
+      });
+    });
+  });
+});
+
 // 啟動伺服器
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

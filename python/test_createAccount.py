@@ -147,7 +147,20 @@ def test_MoviebyName():
     print(actual_response["movies"])
     assert len(actual_response["movies"]) > 0;
     print(actual_response)
-   
+def test_MoviebyRoughName():
+    # Make a GET request to the API
+    url = "http://localhost:5000/GetMovie?q=Ince"
+    expected_response = {"status": "success"};
+    response = requests.get(url)
+    # Ensure the response has a status code of 200
+    assert response.status_code == 200
+    # Parse the JSON response
+    actual_response = response.json()
+    # Ensure the actual response matches the expected response
+    assert actual_response["status"] == expected_response["status"];
+    print(actual_response["movies"])
+    assert len(actual_response["movies"]) > 0;
+    print(actual_response)   
 def test_GetMovieByTheaters_Name():
     # Make a GET request to the API
     url = "http://localhost:5000/theaters/台北信義威秀影城"
@@ -162,3 +175,27 @@ def test_GetMovieByTheaters_Name():
     print(actual_response["movies"])
     assert len(actual_response["movies"]) > 0;
     print(actual_response)         
+
+def test_Transaction():
+    # Make a GET request to the API
+    url = "http://localhost:5000/Transaction"
+    expected_response = {"status": "success"};
+    data = {
+        "Play_ID" : "PLAY001",
+        "Seta_Row":5,
+        "Seta_Column":5, 
+        "CustomerID_card":"A123456789", 
+        "Coupon_ID":"NoDiscount001",
+        "TicketType":"學生票"
+    }
+    response = requests.post(url,json=data)
+
+    # Ensure the response has a status code of 200
+    assert response.status_code == 200
+
+    # Parse the JSON response
+    actual_response = response.json()
+
+    # Ensure the actual response matches the expected response
+    assert actual_response["status"] == expected_response["status"];
+    print(actual_response)   
