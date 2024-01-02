@@ -4,6 +4,7 @@ import storage from "store2"
 
 import { apiActicityList, apiNftView } from "./components/API"
 import ActivityContext from "./contexts/ActivityContext"
+import Nodejs from "./contexts/Nodejs"
 import DialogControllContext from "./contexts/DialogControllContext"
 import DrawerContext from "./contexts/DrawerContext"
 import MemberActivityCodeContext from "./contexts/MemberActivityCodeContext"
@@ -140,6 +141,7 @@ export default function App() {
                         <Routes>
                           <Route path="/">
                             <Route index element={<Home />} />
+                            <Route path="/Nodejs" element={<Nodejs />} />
                             <Route path="/activity" element={<Activity />} />
                             <Route path="/bottom-panel" element={<BottomPanel />} />
                             <Route path="/task/:id" element={<Task />} />

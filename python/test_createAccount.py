@@ -395,4 +395,49 @@ def test_UpdateCinema():
 
     # Ensure the actual response matches the expected response
     assert actual_response["status"] == expected_response["status"];
-    print(actual_response)     
+    print(actual_response)
+def test_AddNewMovieSchedule():
+    # Make a GET request to the API
+    url = "http://localhost:5000/AddNewMovieSchedule"
+    expected_response = {"status": "success"};
+    data = {
+        "date":"2024/1/3",
+        "PlayTime":"19:00:00",
+        "Cinema_ssn":"C001",
+        "Movie_ID":"2",
+    }
+
+    response = requests.post(url,json=data)
+
+    # Ensure the response has a status code of 200
+    assert response.status_code == 200
+
+    # Parse the JSON response
+    actual_response = response.json()
+
+    # Ensure the actual response matches the expected response
+    assert actual_response["status"] == expected_response["status"];
+    print(actual_response)
+def test_UpdateMovieSchedule():
+    # Make a GET request to the API
+    url = "http://localhost:5000/UpdateMovieSchedule"
+    expected_response = {"status": "success"};
+    data = {
+        "Play_ID":"C001",
+        "date":"2024/1/3",
+        "PlayTime":"19:00:00",
+        "Cinema_ssn":"C001",
+        "Movie_ID":"2",
+    }
+
+    response = requests.post(url,json=data)
+
+    # Ensure the response has a status code of 200
+    assert response.status_code == 200
+
+    # Parse the JSON response
+    actual_response = response.json()
+
+    # Ensure the actual response matches the expected response
+    assert actual_response["status"] == expected_response["status"];
+    print(actual_response)                      
