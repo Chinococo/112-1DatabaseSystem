@@ -413,6 +413,72 @@ app.get('/GetNotification', (req, res) => {
     });
   });
 });
+app.post('/UpdateCustomerInformation', (req, res) => {
+  const {Name, Sex, Email,Address,Password,ID_card} = req.body;
+  pool.getConnection((err, connection) => {
+    if (err) {
+      console.log(err.message);
+      res.status(500).json({ status: "unsuccess", message: `MySQL connection error: ${err.message}` });
+      return;
+    }
+    // Use a WHERE clause with LIKE for fuzzy search
+    const sql = 'UPDATE `Customer` SET `Name`=?, `Sex`=?, `Email`=?, `Address`=?, `Password`=? WHERE `ID_card` = ?;';
+    const values = [Name, Sex, Email,Address,Password,ID_card];
+    connection.query(sql, values, (queryErr, results) => {
+      if (queryErr) {
+        console.log(queryErr.message);
+        res.status(500).json({ status: "unsuccess", message: `MySQL query error: ${queryErr.message}` });
+      } else {
+        res.json({ status: "success", Tickets: results });
+      }
+      connection.release();
+    });
+  });
+});
+app.post('/AddCinema', (req, res) => {
+  const {Cinema_ssn, Cinema_No, Theater_Name, Seat_Row, Seat_Column} = req.body;
+  pool.getConnection((err, connection) => {
+    if (err) {
+      console.log(err.message);
+      res.status(500).json({ status: "unsuccess", message: `MySQL connection error: ${err.message}` });
+      return;
+    }
+    // Use a WHERE clause with LIKE for fuzzy search
+    const sql = 'INSERT INTO `Cinema`(`Cinema_ssn`, `Cinema_No`, `Theater_Name`, `Seat_Row`, `Seat_Column`) VALUES (?,?,?,?,?);';
+    const values = [Cinema_ssn, Cinema_No, Theater_Name, Seat_Row, Seat_Column];
+    connection.query(sql, values, (queryErr, results) => {
+      if (queryErr) {
+        console.log(queryErr.message);
+        res.status(500).json({ status: "unsuccess", message: `MySQL query error: ${queryErr.message}` });
+      } else {
+        res.json({ status: "success", Tickets: results });
+      }
+      connection.release();
+    });
+  });
+});
+app.post('/UpdateCinema', (req, res) => {
+  const {Cinema_ssn,Cinema_No, Theater_Name, Seat_Row, Seat_Column} = req.body;
+  pool.getConnection((err, connection) => {
+    if (err) {
+      console.log(err.message);
+      res.status(500).json({ status: "unsuccess", message: `MySQL connection error: ${err.message}` });
+      return;
+    }
+    // Use a WHERE clause with LIKE for fuzzy search
+    const sql = 'UPDATE `Cinema` SET `Cinema_No`=?,`Theater_Name`=?,`Seat_Row`=?,`Seat_Column`=? WHERE `Cinema_ssn`=?;';
+    const values = [ Cinema_No, Theater_Name, Seat_Row, Seat_Column,Cinema_ssn];
+    connection.query(sql, values, (queryErr, results) => {
+      if (queryErr) {
+        console.log(queryErr.message);
+        res.status(500).json({ status: "unsuccess", message: `MySQL query error: ${queryErr.message}` });
+      } else {
+        res.json({ status: "success", Tickets: results });
+      }
+      connection.release();
+    });
+  });
+});
 // 啟動伺服器
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

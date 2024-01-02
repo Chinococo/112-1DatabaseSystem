@@ -326,3 +326,73 @@ def test_GetNotification():
     # Ensure the actual response matches the expected response
     assert actual_response["status"] == expected_response["status"];
     print(actual_response)                
+def test_UpdateMovie():
+    # Make a GET request to the API
+    url = "http://localhost:5000/UpdateCustomerInformation"
+    expected_response = {"status": "success"};
+    data = {
+        "Name":"fuck you",
+        "Sex":"girl",
+        "Email":"12345678",
+        "Address":"12345678",
+        "Password":"12345678",
+        "ID_card":"A123456789"
+    }
+
+    response = requests.post(url,json=data)
+
+    # Ensure the response has a status code of 200
+    assert response.status_code == 200
+
+    # Parse the JSON response
+    actual_response = response.json()
+
+    # Ensure the actual response matches the expected response
+    assert actual_response["status"] == expected_response["status"];
+    print(actual_response)     
+def test_AddCinema():
+    # Make a GET request to the API
+    url = "http://localhost:5000/AddCinema"
+    expected_response = {"status": "success"};
+    data = {
+        "Cinema_ssn":"C005",
+        "Cinema_No":"3",
+        "Theater_Name":"台北信義威秀影城",
+        "Seat_Row":"11",
+        "Seat_Column":"11",
+    }
+
+    response = requests.post(url,json=data)
+
+    # Ensure the response has a status code of 200
+    assert response.status_code == 200
+
+    # Parse the JSON response
+    actual_response = response.json()
+
+    # Ensure the actual response matches the expected response
+    assert actual_response["status"] == expected_response["status"];
+    print(actual_response)        
+def test_UpdateCinema():
+    # Make a GET request to the API
+    url = "http://localhost:5000/UpdateCinema"
+    expected_response = {"status": "success"};
+    data = {
+        "Cinema_ssn":"C001",
+        "Cinema_No":"3",
+        "Theater_Name":"台北信義威秀影城",
+        "Seat_Row":"11",
+        "Seat_Column":"11",
+    }
+
+    response = requests.post(url,json=data)
+
+    # Ensure the response has a status code of 200
+    assert response.status_code == 200
+
+    # Parse the JSON response
+    actual_response = response.json()
+
+    # Ensure the actual response matches the expected response
+    assert actual_response["status"] == expected_response["status"];
+    print(actual_response)     
