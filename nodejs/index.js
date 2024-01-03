@@ -479,6 +479,50 @@ app.post('/UpdateCinema', (req, res) => {
     });
   });
 });
+app.post('/AddNewMovieSchedule', (req, res) => {
+  const {date,PlayTime,Cinema_ssn,Movie_ID} = req.body;
+  pool.getConnection((err, connection) => {
+    if (err) {
+      console.log(err.message);
+      res.status(500).json({ status: "unsuccess", message: `MySQL connection error: ${err.message}` });
+      return;
+    }
+    // Use a WHERE clause with LIKE for fuzzy search
+    const sql = 'INSERT INTO `Movie_Screening_Schedule`(`Play_ID`, `date`, `PlayTime`, `Cinema_ssn`, `Movie_ID`) VALUES (?,?,?,?,?)';
+    const values = [generateRandomString(16),date,PlayTime,Cinema_ssn,Movie_ID];
+    connection.query(sql, values, (queryErr, results) => {
+      if (queryErr) {
+        console.log(queryErr.message);
+        res.status(500).json({ status: "unsuccess", message: `MySQL query error: ${queryErr.message}` });
+      } else {
+        res.json({ status: "success", Tickets: results });
+      }
+      connection.release();
+    });
+  });
+});
+app.post('/UpdateMovieSchedule', (req, res) => {
+  const {Play_ID,date,PlayTime,Cinema_ssn,Movie_ID} = req.body;
+  pool.getConnection((err, connection) => {
+    if (err) {
+      console.log(err.message);
+      res.status(500).json({ status: "unsuccess", message: `MySQL connection error: ${err.message}` });
+      return;
+    }
+    // Use a WHERE clause with LIKE for fuzzy search
+    const sql = 'UPDATE `Movie_Screening_Schedule` SET `date`=?,`PlayTime`=?,`Cinema_ssn`=?,`Movie_ID`=? WHERE `Play_ID`=?';
+    const values = [Play_ID,date,PlayTime,Cinema_ssn,Movie_ID];
+    connection.query(sql, values, (queryErr, results) => {
+      if (queryErr) {
+        console.log(queryErr.message);
+        res.status(500).json({ status: "unsuccess", message: `MySQL query error: ${queryErr.message}` });
+      } else {
+        res.json({ status: "success", Tickets: results });
+      }
+      connection.release();
+    });
+  });
+});
 // 啟動伺服器
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
