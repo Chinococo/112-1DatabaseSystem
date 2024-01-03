@@ -97,12 +97,12 @@ const Nav = () => {
  return (
       <StyledNav1><p>
         <ul style={{ display: 'flex', justifyContent: 'space-between', marginLeft: '700px'}}>
-          <dev><StyledNavLink1 href="/">首頁   </StyledNavLink1></dev>
+          <dev><StyledNavLink1 href="/starting">首頁   </StyledNavLink1></dev>
           <dev><StyledNavLink1 href="/now-showing">現正上映   </StyledNavLink1></dev>
-          <dev><StyledNavLink1 href="/coming-soon">即將上映   </StyledNavLink1></dev>
+          <dev><StyledNavLink1 href="/movielist">即將上映   </StyledNavLink1></dev>
           <dev><StyledNavLink1 href="/">購物車   </StyledNavLink1></dev>
-          <dev><StyledNavLink1 href="/now-showing">登入   </StyledNavLink1></dev>
-          <dev><StyledNavLink1 href="/coming-soon">其他   </StyledNavLink1></dev>
+          <dev><StyledNavLink1 href="/login">登入   </StyledNavLink1></dev>
+          <dev><StyledNavLink1 href="/option">查詢   </StyledNavLink1></dev>
         </ul></p>
       </StyledNav1>
  );
@@ -117,16 +117,16 @@ export default function Starting() {
           <h1>即將上映</h1>
           <p>
         <ul style={{ display: 'flex', justifyContent: 'space-between', marginLeft: '200px'}}>
-          <dev><StyledNavLink2 href="/"> <img src={"https://www.themoviedb.org/t/p/w220_and_h330_face/gGEsBPAijhVUFoiNpgZXqRVWJt2.jpg"} />   </StyledNavLink2></dev>
-          <dev><StyledNavLink2 href="/now-showing"><img src={"https://www.themoviedb.org/t/p/w220_and_h330_face/pHkKbIRoCe7zIFvqan9LFSaQAde.jpg"} />   </StyledNavLink2></dev>
-          <dev><StyledNavLink2 href="/coming-soon"><img src={"https://www.themoviedb.org/t/p/w220_and_h330_face/62HCnUTziyWcpDaBO2i1DX17ljH.jpg"} />   </StyledNavLink2></dev>
-          <dev><StyledNavLink2 href="/coming-soon"><img src={"https://www.themoviedb.org/t/p/w220_and_h330_face/62HCnUTziyWcpDaBO2i1DX17ljH.jpg"} />  </StyledNavLink2></dev> 
+          <dev><StyledNavLink2 href="/moviebooking"> <img src={"https://www.themoviedb.org/t/p/w220_and_h330_face/gGEsBPAijhVUFoiNpgZXqRVWJt2.jpg"} />   </StyledNavLink2></dev>
+          <dev><StyledNavLink2 href="/moviebooking"><img src={"https://www.themoviedb.org/t/p/w220_and_h330_face/pHkKbIRoCe7zIFvqan9LFSaQAde.jpg"} />   </StyledNavLink2></dev>
+          <dev><StyledNavLink2 href="/moviebooking"><img src={"https://www.themoviedb.org/t/p/w220_and_h330_face/62HCnUTziyWcpDaBO2i1DX17ljH.jpg"} />   </StyledNavLink2></dev>
+          <dev><StyledNavLink2 href="/moviebooking"><img src={"https://www.themoviedb.org/t/p/w220_and_h330_face/62HCnUTziyWcpDaBO2i1DX17ljH.jpg"} />  </StyledNavLink2></dev> 
         </ul>
         <ul style={{ display: 'flex', justifyContent: 'space-between', marginLeft: '200px'}}>
         <dev><StyledNavLink3 href="/"><img src={"https://www.themoviedb.org/t/p/w220_and_h330_face/uJYYizSuA9Y3DCs0qS4qWvHfZg4.jpg"} />   </StyledNavLink3></dev>
           <dev><StyledNavLink3 href="/"><img src={"https://www.themoviedb.org/t/p/w220_and_h330_face/uJYYizSuA9Y3DCs0qS4qWvHfZg4.jpg"} />   </StyledNavLink3></dev>
-          <dev><StyledNavLink3 href="/now-showing"><img src={"https://www.themoviedb.org/t/p/w220_and_h330_face/65WFr1ZMAbEniIh4jEhbRG9OHHN.jpg"} />   </StyledNavLink3></dev>
-          <dev><StyledNavLink3 href="/coming-soon"><img src={"https://www.themoviedb.org/t/p/w220_and_h330_face/kxB9E6fo0ycHzd13oOTHmGa5Njd.jpg"} />   </StyledNavLink3></dev>
+          <dev><StyledNavLink3 href="/moviebooking"><img src={"https://www.themoviedb.org/t/p/w220_and_h330_face/65WFr1ZMAbEniIh4jEhbRG9OHHN.jpg"} />   </StyledNavLink3></dev>
+          <dev><StyledNavLink3 href="/moviebooking"><img src={"https://www.themoviedb.org/t/p/w220_and_h330_face/kxB9E6fo0ycHzd13oOTHmGa5Njd.jpg"} />   </StyledNavLink3></dev>
         </ul></p>
         
           <Footer />

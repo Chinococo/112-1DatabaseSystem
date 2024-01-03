@@ -4,7 +4,6 @@ import storage from "store2"
 
 import { apiActicityList, apiNftView } from "./components/API"
 import ActivityContext from "./contexts/ActivityContext"
-import Nodejs from "./contexts/Nodejs"
 import DialogControllContext from "./contexts/DialogControllContext"
 import DrawerContext from "./contexts/DrawerContext"
 import MemberActivityCodeContext from "./contexts/MemberActivityCodeContext"
@@ -44,6 +43,8 @@ import TaskVerify from "./routes/TaskVerify"
 import Movielist from "./routes/movielist"
 import Option from "./routes/option"
 import Bookinglist from "./routes/bookinglist"
+import Api from "./routes/api"
+import Moviebooking from "./routes/moviebooking"
 
 export default function App() {
   const { fetchAllTasks } = useTasks()
@@ -141,7 +142,6 @@ export default function App() {
                         <Routes>
                           <Route path="/">
                             <Route index element={<Home />} />
-                            <Route path="/Nodejs" element={<Nodejs />} />
                             <Route path="/activity" element={<Activity />} />
                             <Route path="/bottom-panel" element={<BottomPanel />} />
                             <Route path="/task/:id" element={<Task />} />
@@ -171,6 +171,8 @@ export default function App() {
                             <Route path="/movielist" element={<Movielist />} />
                             <Route path="/option" element={<Option />} />
                             <Route path="/bookinglist" element={<Bookinglist />} />
+                            <Route path="/api" element={<Api />} />
+                            <Route path="/moviebooking" element={<Moviebooking />} />
                             {/* <Route path="/activityLoading" element={<ActivityLoading />} /> */}
                             {/* <Route path="/JoinSuccess" element={<JoinSuccess />} /> */}
                             {/*
