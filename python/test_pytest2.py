@@ -1,7 +1,7 @@
 import mysql.connector
 import pytest
 def test_1_plus_1():
-    assert 1 + 1 == 3
+    assert 1 + 1 == 2
 
 
 def test_mysql_connection():

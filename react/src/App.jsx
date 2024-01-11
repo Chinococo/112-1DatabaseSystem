@@ -45,6 +45,8 @@ import Option from "./routes/option"
 import Bookinglist from "./routes/bookinglist"
 import Api from "./routes/api"
 import Moviebooking from "./routes/moviebooking"
+import Schedule from "./routes/schedule"
+import Shoppingcar from "./routes/shoppingcar"
 
 export default function App() {
   const { fetchAllTasks } = useTasks()
@@ -173,6 +175,8 @@ export default function App() {
                             <Route path="/bookinglist" element={<Bookinglist />} />
                             <Route path="/api" element={<Api />} />
                             <Route path="/moviebooking" element={<Moviebooking />} />
+                            <Route path="/schedule" element={<Schedule />} />
+                            <Route path="/shoppingcar" element={<Shoppingcar />} />
                             {/* <Route path="/activityLoading" element={<ActivityLoading />} /> */}
                             {/* <Route path="/JoinSuccess" element={<JoinSuccess />} /> */}
                             {/*

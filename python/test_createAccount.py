@@ -326,7 +326,7 @@ def test_GetNotification():
     # Ensure the actual response matches the expected response
     assert actual_response["status"] == expected_response["status"];
     print(actual_response)                
-def test_UpdateMovie():
+def test_UpdateMovieInformation():
     # Make a GET request to the API
     url = "http://localhost:5000/UpdateCustomerInformation"
     expected_response = {"status": "success"};
