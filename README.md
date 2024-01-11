@@ -37,6 +37,7 @@
 Set-ExecutionPolicy RemoteSigned
 #### Step5 use powershell to excute start.ps1 file start.
 #### File Structure(非必要 請勿跟動Dokckerfile 跟 docker-compose.yml 我怕你改了整個壞掉 要改之前先問我)
+```
 -- bin 勿動
 -- config 勿動
 -- data
@@ -63,13 +64,14 @@ LAMP_README.md 原始文檔介紹，基本忽略，我已經改很多，改到�
 LICENSE 修改來源為:(來源)[https://github.com/sprintcube/docker-compose-lamp] 可以免費使用，也可以商用，但一定要帶有原始的LICENSE
 README.md 解釋文檔 你現在正在看的這個就是 你都在看應該知道
 Start.ps1 部屬腳本 如果無法順利執行，請檢察docker狀況並更新docker  
+```
 ### 演示圖片
 #### 如果你順立執行，可以來Docker hub的Containar裡面看到這張圖片
-![image](https://hackmd.io/_uploads/rJuEzEePa.png)
+https://hackmd.io/_uploads/rJuEzEePa.png
 #### 你可以按下Port的按鈕進行請求
-![image](https://hackmd.io/_uploads/SJBvfNxDa.png)
+https://hackmd.io/_uploads/SJBvfNxDa.png
 ##### Example 我按下 React的按鈕
-![image](https://hackmd.io/_uploads/S1qeNNeP6.png)
+https://hackmd.io/_uploads/S1qeNNeP6.png
 #### EXTRA Step If you ngork to public server
 1. https://ngrok.com/
 2. Register
