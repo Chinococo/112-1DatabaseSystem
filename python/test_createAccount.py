@@ -441,3 +441,19 @@ def test_UpdateMovieSchedule():
     # Ensure the actual response matches the expected response
     assert actual_response["status"] == expected_response["status"];
     print(actual_response)                      
+def test_GetAllSeats():
+    # Make a GET request to the API
+    url = "http://localhost:5000/RemaingSeats"
+    expected_response = {"status": "success"};
+    response = requests.get(url)
+
+    # Ensure the response has a status code of 200
+    assert response.status_code == 200
+
+    # Parse the JSON response
+    actual_response = response.json()
+
+    # Ensure the actual response matches the expected response
+    assert actual_response["status"] == expected_response["status"];
+    assert len(actual_response["movies"])>0
+    print(actual_response)     

@@ -523,6 +523,52 @@ app.post('/UpdateMovieSchedule', (req, res) => {
     });
   });
 });
+app.get('/RemaingSeats', (req, res) => {
+  console.log(req.params);
+  pool.getConnection((err, connection) => {
+    if (err) {
+      console.log(err.message);
+      res.status(500).json({ status: "unsuccess", message: `MySQL connection error: ${err.message}` });
+      return;
+    }
+    // Use a WHERE clause to filter by movieName
+    const sql = `
+    SELECT 
+        Movie_Screening_Schedule.PlayTime,
+        Movie_Screening_Schedule.Movie_ID,
+        Cinema.Theater_Name,
+        Movie.*,
+        (Cinema.Seat_Row * Cinema.Seat_Column) AS OriginalSeats,
+        (Cinema.Seat_Row * Cinema.Seat_Column) - COUNT(Seats.SeatID) AS RemainingSeats
+    FROM 
+        Movie_Screening_Schedule 
+    JOIN 
+        Cinema ON Movie_Screening_Schedule.Cinema_ssn = Cinema.Cinema_ssn 
+    JOIN 
+        Movie ON Movie_Screening_Schedule.Movie_ID = Movie.Movie_ID
+    LEFT JOIN
+        Seats ON Movie_Screening_Schedule.Play_ID = Seats.PlayID
+    GROUP BY
+        Movie_Screening_Schedule.PlayTime,
+        Movie_Screening_Schedule.Movie_ID,
+        Cinema.Theater_Name,
+        Movie.Movie_ID,  -- Assuming Movie has a primary key Movie_ID
+        Cinema.Seat_Row,
+        Cinema.Seat_Column;
+`;
+    const values = [];
+    console.log(values);
+    connection.query(sql, values, (queryErr, results) => {
+      if (queryErr) {
+        console.log(queryErr.message);
+        res.status(500).json({ status: "unsuccess", message: `MySQL query error: ${queryErr.message}` });
+      } else {
+        res.json({ status: "success", movies: results });
+      }
+      connection.release();
+    });
+  });
+});
 // 啟動伺服器
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
