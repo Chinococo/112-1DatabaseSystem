@@ -569,6 +569,30 @@ app.get('/RemaingSeats', (req, res) => {
     });
   });
 });
+app.get('/GetAllCinema', (req, res) => {
+  pool.getConnection((err, connection) => {
+    if (err) {
+      console.log(err.message);
+      res.status(500).json({ status: "unsuccess", message: `MySQL connection error: ${err.message}` });
+      return;
+    }
+    // Use a WHERE clause to filter by movieName
+    const sql = `
+      SELECT * FROM Cinema
+    `;
+    const values = [];
+    console.log(values);
+    connection.query(sql, values, (queryErr, results) => {
+      if (queryErr) {
+        console.log(queryErr.message);
+        res.status(500).json({ status: "unsuccess", message: `MySQL query error: ${queryErr.message}` });
+      } else {
+        res.json({ status: "success", movies: results });
+      }
+      connection.release();
+    });
+  });
+});
 // 啟動伺服器
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
