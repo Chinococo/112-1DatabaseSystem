@@ -103,6 +103,7 @@ const Nav = () => {
           <dev><StyledNavLink1 href="/">購物車   </StyledNavLink1></dev>
           <dev><StyledNavLink1 href="/login">登入   </StyledNavLink1></dev>
           <dev><StyledNavLink1 href="/option">查詢   </StyledNavLink1></dev>
+          <dev><StyledNavLink1 href="/orderlist">購買清單   </StyledNavLink1></dev>
         </ul></p>
       </StyledNav1>
  );

@@ -76,12 +76,13 @@ const Nav = () => {
  return (
       <StyledNav1><p>
         <ul style={{ display: 'flex', justifyContent: 'space-between', marginLeft: '700px'}}>
-          <dev><StyledNavLink1 href="/">首頁   </StyledNavLink1></dev>
-          <dev><StyledNavLink1 href="/now-showing">現正上映   </StyledNavLink1></dev>
+          <dev><StyledNavLink1 href="/starting">首頁   </StyledNavLink1></dev>
+          <dev><StyledNavLink1 href="/movielist">現正上映   </StyledNavLink1></dev>
           <dev><StyledNavLink1 href="/movielist">即將上映   </StyledNavLink1></dev>
-          <dev><StyledNavLink1 href="/">購物車   </StyledNavLink1></dev>
+          <dev><StyledNavLink1 href="/shoppingcar">購物車   </StyledNavLink1></dev>
           <dev><StyledNavLink1 href="/login">登入   </StyledNavLink1></dev>
           <dev><StyledNavLink1 href="/option">查詢   </StyledNavLink1></dev>
+          <dev><StyledNavLink1 href="/orderlist">購買清單   </StyledNavLink1></dev>
         </ul></p>
       </StyledNav1>
  );

@@ -30,6 +30,8 @@ const RegisterForm = () => {
       if (response.ok) {
         const result = await response.json();
         console.log(result);
+        window.location.href = '/starting';
+
         // Handle success, maybe redirect to another page or show a success message
       } else {
         // Handle error, maybe show an error message to the user
@@ -162,7 +164,7 @@ const Nav = () => {
       <label>Password:</label>
       <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         <br></br>
-      <button onClick={handleRegister} href="/starting">Register</button>
+      <button onClick={handleRegister} >Register</button>
       
     </div>
     <Footer />

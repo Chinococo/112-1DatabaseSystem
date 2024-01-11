@@ -45,11 +45,14 @@ import Option from "./routes/option"
 import Bookinglist from "./routes/bookinglist"
 import Api from "./routes/api"
 import Moviebooking from "./routes/moviebooking"
-import Schedule from "./routes/schedule"
 import Shoppingcar from "./routes/shoppingcar"
-import TestFetchApi from "./routes/TestFetchApi.jsx"
-import TestFetchApi2 from "./routes/TestFetchApi2.jsx"
-import TestFetchApi3 from "./routes/TestFetchApi3.jsx"
+import Schedule from "./routes/schedule"
+import Newmovie from "./routes/newmovie"
+import Control from "./routes/Control"
+import Orderlist from "./routes/orderlist"
+import Movietheatername from "./routes/MovieTheaterName"
+import Moviescreeningtime from "./routes/MovieScreeningTime"
+
 export default function App() {
   const { fetchAllTasks } = useTasks()
   const [drawerOpen, setDrawerOpen] = React.useState(false)
@@ -177,11 +180,13 @@ export default function App() {
                             <Route path="/bookinglist" element={<Bookinglist />} />
                             <Route path="/api" element={<Api />} />
                             <Route path="/moviebooking" element={<Moviebooking />} />
-                            <Route path="/schedule" element={<Schedule />} />
-                            <Route path="/shoppingcar" element={<Shoppingcar />} />
-                            <Route path="/TestFetchApi" element={<TestFetchApi />} />
-                            <Route path="/TestFetchApi2" element={<TestFetchApi2 />} />
-                            <Route path="/TestFetchApi3" element={<TestFetchApi3 />} />
+                            <Route path="/Shoppingcar" element={<Shoppingcar />} />
+                            <Route path="/Schedule" element={<Schedule />} />
+                            <Route path="/newmovie" element={<Newmovie />} />
+                            <Route path="/control" element={<Control />} />
+                            <Route path="/orderlist" element={<Orderlist />} />
+                            <Route path="/movietheatername" element={<Movietheatername />} />
+                            <Route path="/moviescreeningtime" element={<Moviescreeningtime />} />
                             {/* <Route path="/activityLoading" element={<ActivityLoading />} /> */}
                             {/* <Route path="/JoinSuccess" element={<JoinSuccess />} /> */}
                             {/*
