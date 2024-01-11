@@ -119,7 +119,7 @@ def test_Coupons():
     print(actual_response["coupons"])
     assert len(actual_response["coupons"]) > 0;
     print(actual_response)  
-def test_Movie():
+def test_GetMovie():
     # Make a GET request to the API
     url = "http://localhost:5000/GetMovie"
     expected_response = {"status": "success"};

@@ -47,7 +47,9 @@ import Api from "./routes/api"
 import Moviebooking from "./routes/moviebooking"
 import Schedule from "./routes/schedule"
 import Shoppingcar from "./routes/shoppingcar"
-
+import TestFetchApi from "./routes/TestFetchApi.jsx"
+import TestFetchApi2 from "./routes/TestFetchApi2.jsx"
+import TestFetchApi3 from "./routes/TestFetchApi3.jsx"
 export default function App() {
   const { fetchAllTasks } = useTasks()
   const [drawerOpen, setDrawerOpen] = React.useState(false)
@@ -177,6 +179,9 @@ export default function App() {
                             <Route path="/moviebooking" element={<Moviebooking />} />
                             <Route path="/schedule" element={<Schedule />} />
                             <Route path="/shoppingcar" element={<Shoppingcar />} />
+                            <Route path="/TestFetchApi" element={<TestFetchApi />} />
+                            <Route path="/TestFetchApi2" element={<TestFetchApi2 />} />
+                            <Route path="/TestFetchApi3" element={<TestFetchApi3 />} />
                             {/* <Route path="/activityLoading" element={<ActivityLoading />} /> */}
                             {/* <Route path="/JoinSuccess" element={<JoinSuccess />} /> */}
                             {/*
