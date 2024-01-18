@@ -77,7 +77,7 @@ services:
     image: swaggerapi/swagger-ui
     container_name: "${COMPOSE_PROJECT_NAME}-swagger-ui"
     ports:
-      - "${HOST_MACHINE_SWAGGER_EDITOR}:8080"
+      - "${HOST_MACHINE_SWAGGER_EDITOR_UI}:8080"
   react-app:
     # network_mode: "host"  # 使用Host Network
     container_name: '${COMPOSE_PROJECT_NAME}-react'
