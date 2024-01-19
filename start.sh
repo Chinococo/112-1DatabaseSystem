@@ -41,8 +41,8 @@ for ((attempt=1; attempt<=maxRetryAttempts; attempt++)); do
     fi
 done
 
-docker run -d --name test1 --network host --env-file .sql.env -v "$(pwd)"/sqls:/docker-entrypoint-initdb.d databasesystem-database
-docker run -d --name test2 --network host -e DB_HOST=localhost databasesystem-nodejs-app
+docker run -d --name test1 --network host --env-file .sql.env -v "$(pwd)"/sqls:/docker-entrypoint-initdb.d databasesystem_database
+docker run -d --name test2 --network host -e DB_HOST=localhost databasesystem_nodejs-app
 
 while true; do
     # Run MySQL command and capture the output
@@ -61,5 +61,5 @@ while true; do
     sleep 3
 done
 
-docker run --rm -v "$(pwd)"/python/result:/opt/apps/test/python/result --network host databasesystem-python pytest --junitxml=/opt/apps/test/python/result/test-results.xml --json=/opt/apps/test/python/result/test-results.json --html=/opt/apps/test/python/result/report.html --self-contained-html
+docker run --rm -v "$(pwd)"/python/result:/opt/apps/test/python/result --network host databasesystem_python pytest --junitxml=/opt/apps/test/python/result/test-results.xml --json=/opt/apps/test/python/result/test-results.json --html=/opt/apps/test/python/result/report.html --self-contained-html
 xdg-open "$(pwd)"/python/result/report.html
