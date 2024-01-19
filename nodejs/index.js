@@ -1,16 +1,31 @@
 const express = require('express');
+const https = require('https');
+const fs = require('fs');
 const mysql = require('mysql');
 const cors = require('cors');
 const app = express();
 const crypto = require('crypto');
-app.use(express.json())
+
+app.use(express.json());
 const port = 5000;
+
 function generateRandomString(length) {
   return crypto.randomBytes(Math.ceil(length / 2))
-    .toString('hex') // 轉換成十六進制
-    .slice(0, length); // 截取指定長度的字串
+    .toString('hex') // Convert to hexadecimal
+    .slice(0, length); // Slice to the specified length
 }
+
 app.use(cors());
+
+// Path to your SSL certificate and private key
+const sslOptions = {
+  cert: fs.readFileSync('fullchain.pem'),
+  key: fs.readFileSync('privkey.pem')
+};
+
+https.createServer(sslOptions, app).listen(port, () => {
+  console.log(`Server running at https://localhost:${port}`);
+});
 // 定義一個簡單的路由
 dbConfig = {
   host: process.env.DB_HOST || 'database',
