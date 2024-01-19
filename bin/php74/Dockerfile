@@ -84,9 +84,6 @@ RUN apt-get update && apt-get install -y wget unzip
 RUN wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip && \
     unzip ngrok-stable-linux-amd64.zip -d /usr/local/bin && \
     rm ngrok-stable-linux-amd64.zip
-# install mySQL for PHP
-RUN docker-php-ext-install mysqli
-RUN docker-php-ext-enable mysqli
 # Apache setting
 ADD ./000-default.conf /etc/apache2/sites-available/000-default.conf
 RUN a2enmod ssl    
