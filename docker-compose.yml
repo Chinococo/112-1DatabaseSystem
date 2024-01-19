@@ -95,6 +95,11 @@ services:
       - database
     build: ./nodejs/  # 使用當前目錄的 Dockerfile 進行構建
     #network_mode: "host"  # 使用Host Network
+    volumes: 
+      - /etc/letsencrypt/live/www.chinococo.tw/cert.pem:/usr/src/app/cert.pem
+      - /etc/letsencrypt/live/www.chinococo.tw/chain.pem:/usr/src/app/chain.pem
+      - /etc/letsencrypt/live/www.chinococo.tw/fullchain.pem:/usr/src/app/fullchain.pem
+      - /etc/letsencrypt/live/www.chinococo.tw/privkey.pem:/usr/src/app/privkey.pem
     ports:
       - "${HOST_MACHINE_Nodejs}:5000"  # 映射容器的 3000 埠到主機的 3000 埠        
   
