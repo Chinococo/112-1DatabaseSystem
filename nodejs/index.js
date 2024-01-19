@@ -23,9 +23,6 @@ const sslOptions = {
   key: fs.readFileSync('privkey.pem')
 };
 
-https.createServer(sslOptions, app).listen(port, () => {
-  console.log(`Server running at https://localhost:${port}`);
-});
 // 定義一個簡單的路由
 dbConfig = {
   host: process.env.DB_HOST || 'database',
@@ -614,7 +611,6 @@ app.get('/GetAllCinema', (req, res) => {
     });
   });
 });
-// 啟動伺服器
-app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
+https.createServer(sslOptions, app).listen(port, () => {
+  console.log(`Server running at https://localhost:${port}`);
 });
