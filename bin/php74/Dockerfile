@@ -88,7 +88,5 @@ RUN wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip && \
 RUN docker-php-ext-install mysqli
 RUN docker-php-ext-enable mysqli
 # Apache setting
-ADD ./HTML /var/www/html
-ADD ./ssl /etc/apache2/ssl
 ADD ./000-default.conf /etc/apache2/sites-available/000-default.conf
 RUN a2enmod ssl    
