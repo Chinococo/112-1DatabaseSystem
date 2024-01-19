@@ -62,4 +62,4 @@ while true; do
 done
 
 docker run --rm -v "$(pwd)"/python/result:/opt/apps/test/python/result --network host databasesystem_python pytest --junitxml=/opt/apps/test/python/result/test-results.xml --json=/opt/apps/test/python/result/test-results.json --html=/opt/apps/test/python/result/report.html --self-contained-html
-xdg-open "$(pwd)"/python/result/report.html
+docker cp ${PWD}/python/result/report.html databasesystem-php74:/var/www/html/
