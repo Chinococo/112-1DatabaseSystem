@@ -22,7 +22,7 @@ dbConfig = {
 console.log(dbConfig);
 // Create a MySQL pool
 pool = mysql.createPool(dbConfig);
-const challengeRoute = '/.well-known/acme-challenge/OVbKT9dEo7-';
+const challengeRoute = '/.well-known/acme-challenge/OVbKT9dEo7-0c_EtbXasawtBAKED_60CTNDlUf3jwWE';
 const challengeContent = 'OVbKT9dEo7-0c_EtbXasawtBAKED_60CTNDlUf3jwWE.3sCwY8t6GjzBAAW8pWm5SrSwbtC4MOSkOLqjSyFy_74';
 
 app.get(challengeRoute, (req, res) => {
