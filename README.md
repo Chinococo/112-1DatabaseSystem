@@ -77,3 +77,57 @@ https://hackmd.io/_uploads/S1qeNNeP6.png
 2. Register
 3. Login
 4. Copy ngork token
+# SSL 配置
+## 安裝系統
+sudo apt-get install nginx
+## 配置檔 location:/etc/nginx/conf.d
+```config
+server {
+    listen 80;
+    server_name www.chinococo.tw;
+    location / {
+        proxy_pass http://127.0.0.1:83;
+   }
+}
+server {
+    listen 80;
+    server_name api.chinococo.tw;
+    location / {
+        proxy_pass http://127.0.0.1:4000;
+   }
+}
+server {
+        listen 443 ssl;
+        server_name www.chinococo.tw;
+
+        # SSL 憑證和私鑰的路徑
+        ssl_certificate /etc/letsencrypt/live/www.chinococo.tw/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/www.chinococo.tw/privkey.pem;
+
+        # 其他 HTTPS 相關配置...
+
+        location / {
+            proxy_pass http://127.0.0.1:444;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+
+        # 其他伺服器設定..
+                # 設定網站根目錄
+        root var/www/html;
+
+    }
+```
+## 重新啟動
+sudo nginx -t
+sudo systemctl reload nginx
+## 首次配置
+apt  install certbot
+certbot certonly --manual -m chinococoa149@gmail.com -d www.chinococo.tw 
+
+並且請要在 www/.well-known/acme-challenge/J9u_zXQ-exklQfwUID0t0r2ovhgfeGkkOGgab6VMkeA
+建立鑰使
+## renew
+certbot renew
