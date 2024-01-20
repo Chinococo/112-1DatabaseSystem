@@ -4,7 +4,7 @@ import mysql.connector
 import pytest
 def test_api_response():
     # Make a GET request to the API
-    url = "https://www.chinococo.tw/api"
+    url = "https://api.chinococo.tw/api"
     expected_response = {"message": "Hello, this is a simple RESTful API!"}
     response = requests.get(url)
 
@@ -19,7 +19,7 @@ def test_api_response():
 
 def test_createAccount():
     # Make a GET request to the API
-    url = "https://www.chinococo.tw/Register"
+    url = "https://api.chinococo.tw/Register"
     expected_response = {"status": "success"};
     data = {
         "Email": "chino@gmail.com",
@@ -41,7 +41,7 @@ def test_createAccount():
     print(actual_response)
 def test_LoginAccount():
     # Make a GET request to the API
-    url = "https://www.chinococo.tw/Login"
+    url = "https://api.chinococo.tw/Login"
     expected_response = {"status": "success"};
     data = {
         "Email": "chino@gmail.com",
@@ -60,7 +60,7 @@ def test_LoginAccount():
     print(actual_response)    
 def test_LoginAccountFail1():
     # Make a GET request to the API
-    url = "https://www.chinococo.tw/Login"
+    url = "https://api.chinococo.tw/Login"
     expected_response = {"status": "unsuccess","message":'Password error'};
     data = {
         "Email": "chino@gmail.com",
@@ -80,7 +80,7 @@ def test_LoginAccountFail1():
     print(actual_response)  
 def test_LoginAccountFail2():
     # Make a GET request to the API
-    url = "https://www.chinococo.tw/Login"
+    url = "https://api.chinococo.tw/Login"
     expected_response = {"status": "unsuccess","message":'User not found'};
     data = {
         "Email": "chino@gmail.com1",
@@ -100,7 +100,7 @@ def test_LoginAccountFail2():
     print(actual_response)          
 def test_Coupons():
     # Make a GET request to the API
-    url = "https://www.chinococo.tw/GetCoupons"
+    url = "https://api.chinococo.tw/GetCoupons"
     expected_response = {"status": "success","message":'Coupons retrieved successfully'};
     data = {
         "CustomerID": "A123456789",
@@ -121,7 +121,7 @@ def test_Coupons():
     print(actual_response)  
 def test_GetMovie():
     # Make a GET request to the API
-    url = "https://www.chinococo.tw/GetMovie"
+    url = "https://api.chinococo.tw/GetMovie"
     expected_response = {"status": "success"};
     response = requests.get(url)
     # Ensure the response has a status code of 200
@@ -135,7 +135,7 @@ def test_GetMovie():
     print(actual_response)      
 def test_MoviebyName():
     # Make a GET request to the API
-    url = "https://www.chinococo.tw/GetMovie/Inception"
+    url = "https://api.chinococo.tw/GetMovie/Inception"
     expected_response = {"status": "success"};
     response = requests.get(url)
     # Ensure the response has a status code of 200
@@ -149,7 +149,7 @@ def test_MoviebyName():
     print(actual_response)
 def test_MoviebyRoughName():
     # Make a GET request to the API
-    url = "https://www.chinococo.tw/GetMovie?q=Ince"
+    url = "https://api.chinococo.tw/GetMovie?q=Ince"
     expected_response = {"status": "success"};
     response = requests.get(url)
     # Ensure the response has a status code of 200
@@ -163,7 +163,7 @@ def test_MoviebyRoughName():
     print(actual_response)   
 def test_GetMovieByTheaters_Name():
     # Make a GET request to the API
-    url = "https://www.chinococo.tw/theaters/台北信義威秀影城"
+    url = "https://api.chinococo.tw/theaters/台北信義威秀影城"
     expected_response = {"status": "success"};
     response = requests.get(url)
     # Ensure the response has a status code of 200
@@ -178,7 +178,7 @@ def test_GetMovieByTheaters_Name():
 
 def test_Transaction():
     # Make a GET request to the API
-    url = "https://www.chinococo.tw/Transaction"
+    url = "https://api.chinococo.tw/Transaction"
     expected_response = {"status": "success"};
     data = {
         "Play_ID" : "PLAY001",
@@ -201,7 +201,7 @@ def test_Transaction():
     print(actual_response)   
 def test_GetCopun():
     # Make a GET request to the API
-    url = "https://www.chinococo.tw/Coupon"
+    url = "https://api.chinococo.tw/Coupon"
     expected_response = {"status": "success"};
     data = {
         "ID_card" : "A123456789",
@@ -220,7 +220,7 @@ def test_GetCopun():
     print(actual_response) 
 def test_GetTickets():
     # Make a GET request to the API
-    url = "https://www.chinococo.tw/Tickets"
+    url = "https://api.chinococo.tw/Tickets"
     expected_response = {"status": "success"};
     data = {
         "ID_card" : "A123456789",
@@ -239,7 +239,7 @@ def test_GetTickets():
     print(actual_response)       
 def test_AddMovie():
     # Make a GET request to the API
-    url = "https://www.chinococo.tw/AddMovie"
+    url = "https://api.chinococo.tw/AddMovie"
     expected_response = {"status": "success"};
     data = {
         "Type": "Action",
@@ -265,7 +265,7 @@ def test_AddMovie():
     print(actual_response)    
 def test_UpdateMovie():
     # Make a GET request to the API
-    url = "https://www.chinococo.tw/UpdateMovie"
+    url = "https://api.chinococo.tw/UpdateMovie"
     expected_response = {"status": "success"};
     data = {
         "Movie_ID":"3",
@@ -292,7 +292,7 @@ def test_UpdateMovie():
     print(actual_response)      
 def test_AddNotification():
     # Make a GET request to the API
-    url = "https://www.chinococo.tw/AddNotification"
+    url = "https://api.chinococo.tw/AddNotification"
     expected_response = {"status": "success"};
     data = {
         "Message": "奇怪的節日",
@@ -313,7 +313,7 @@ def test_AddNotification():
     print(actual_response)
 def test_GetNotification():
     # Make a GET request to the API
-    url = "https://www.chinococo.tw/GetNotification?date=2023/1/10"
+    url = "https://api.chinococo.tw/GetNotification?date=2023/1/10"
     expected_response = {"status": "success"};
     response = requests.get(url)
 
@@ -328,7 +328,7 @@ def test_GetNotification():
     print(actual_response)                
 def test_UpdateMovieInformation():
     # Make a GET request to the API
-    url = "https://www.chinococo.tw/UpdateCustomerInformation"
+    url = "https://api.chinococo.tw/UpdateCustomerInformation"
     expected_response = {"status": "success"};
     data = {
         "Name":"fuck you",
@@ -352,7 +352,7 @@ def test_UpdateMovieInformation():
     print(actual_response)     
 def test_AddCinema():
     # Make a GET request to the API
-    url = "https://www.chinococo.tw/AddCinema"
+    url = "https://api.chinococo.tw/AddCinema"
     expected_response = {"status": "success"};
     data = {
         "Cinema_ssn":"C005",
@@ -375,7 +375,7 @@ def test_AddCinema():
     print(actual_response)        
 def test_UpdateCinema():
     # Make a GET request to the API
-    url = "https://www.chinococo.tw/UpdateCinema"
+    url = "https://api.chinococo.tw/UpdateCinema"
     expected_response = {"status": "success"};
     data = {
         "Cinema_ssn":"C001",
@@ -398,7 +398,7 @@ def test_UpdateCinema():
     print(actual_response)
 def test_AddNewMovieSchedule():
     # Make a GET request to the API
-    url = "https://www.chinococo.tw/AddNewMovieSchedule"
+    url = "https://api.chinococo.tw/AddNewMovieSchedule"
     expected_response = {"status": "success"};
     data = {
         "date":"2024/1/3",
@@ -420,7 +420,7 @@ def test_AddNewMovieSchedule():
     print(actual_response)
 def test_UpdateMovieSchedule():
     # Make a GET request to the API
-    url = "https://www.chinococo.tw/UpdateMovieSchedule"
+    url = "https://api.chinococo.tw/UpdateMovieSchedule"
     expected_response = {"status": "success"};
     data = {
         "Play_ID":"C001",
@@ -443,7 +443,7 @@ def test_UpdateMovieSchedule():
     print(actual_response)                      
 def test_GetAllSeats():
     # Make a GET request to the API
-    url = "https://www.chinococo.tw/RemaingSeats"
+    url = "https://api.chinococo.tw/RemaingSeats"
     expected_response = {"status": "success"};
     response = requests.get(url)
 
