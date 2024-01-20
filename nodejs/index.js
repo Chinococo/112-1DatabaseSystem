@@ -19,12 +19,6 @@ function generateRandomString(length) {
 
 app.use(cors());
 
-// Path to your SSL certificate and private key
-const sslOptions = {
-  cert: fs.readFileSync('/usr/src/app/fullchain.pem'),
-  key: fs.readFileSync('/usr/src/app/privkey.pem')
-};
-
 // 定義一個簡單的路由
 const dbConfig = {
   host: process.env.DB_HOST || 'database',
@@ -619,8 +613,20 @@ httpServer.listen(portHttp, () => {
   console.log(`HTTP Server running at http://localhost:${portHttp}`);
 });
 
-// 創建 HTTPS 伺服器
-const httpsServer = https.createServer(sslOptions, app);
-httpsServer.listen(portHttps, () => {
-  console.log(`HTTPS Server running at https://localhost:${portHttps}`);
-});
+const certPath = '/usr/src/app/fullchain.pem';
+const keyPath = '/usr/src/app/privkey.pem';
+
+let sslOptions = {};
+if (fs.existsSync(certPath) && fs.existsSync(keyPath)) {
+  sslOptions = {
+    cert: fs.readFileSync(certPath),
+    key: fs.readFileSync(keyPath)
+  };
+  // 如果檔案存在，則啟動 HTTPS 伺服器
+  const httpsServer = https.createServer(sslOptions, app);
+  httpsServer.listen(portHttps, () => {
+    console.log(`HTTPS Server running at https://localhost:${portHttps}`);
+  });
+} else {
+  console.log("SSL certificate or private key file not found. HTTPS server will not be started.");
+}
